@@ -12,7 +12,15 @@
 <body>
     <header>
         <div class="settings">
-            <i class="fa-solid fa-gear"></i>
+            <div id="iconWrapper">
+                <i id="settingsIcon" class="fa-solid fa-gear settingsIcon"></i>
+                <div id="settingsPopUp" class="settingsPopUp noDisplay">
+                    <p>Dark Mode</p>
+                    <a href="https://www.youtube.com/@Cubeacabra/shorts">                    
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
         </div>
         <div class="titles">
             <h1>Strategic Tic-Tac-Toe</h1>
@@ -21,7 +29,19 @@
         </div>
     </header>
     <main>
-
+        <div class="boardWrapper"></div>
+        <div class="optionsWrapper">
+            <button id="player1" class="player1">
+                Player 1 filler text
+            </button>
+            <button id="player2" class="player2">
+                Player 2 filler text
+            </button>
+            <button id="restart" class="restart">
+                Restart Game
+            </button>
+           
+        </div>
     </main>
     <footer>
 
