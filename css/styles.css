@@ -70,3 +70,11 @@ main {
 .noDisplay {
     opacity: 0;
 }
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    row-gap: 2%;
+    column-gap: 2%;
+}

@@ -1,6 +1,5 @@
 let settings = document.getElementById("settingsIcon");
 let settingsPopUp = document.getElementById("settingsPopUp");
-let youtube = document.getElementById("youtube")
 
 
 settings.addEventListener("mouseover", () => {
@@ -9,3 +8,24 @@ settings.addEventListener("mouseover", () => {
 settingsPopUp.addEventListener("focusout", () => {
     settingsPopUp.classList.add("noDisplay")
 })
+
+
+
+
+let boardWrapper = document.getElementById("boardWrapper")
+
+
+//want to make the boards js but confused
+
+// class BigBoard {
+//     constructor() {
+
+//     }
+// }
+// class SmallBoard {
+//     constructor() {
+
+//     }
+//     this.boardDiv = document.createElement("div")
+
+// }
