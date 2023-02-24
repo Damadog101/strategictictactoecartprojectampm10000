@@ -44,8 +44,8 @@ class TicTacToe {
         [0, 0, 0]
     ]
     }
-    makeMove(subBoard, index) {
-        
+    makeMove(player, x, y) {
+        this.board[x][y] = player
     }
     checkWin() {
         for(let i = 0; i < 3; i++) {
