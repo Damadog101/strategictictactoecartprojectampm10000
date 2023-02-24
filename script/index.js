@@ -10,45 +10,28 @@ settings.addEventListener("click", () => {
     }
 })
 
+let board_wrapper = document.getElementById("board-wrapper")
 
+// For generating subboards
+function new_subboard(i) {
+    let subboard = document.createElement('div');
+    subboard.classList.add("board");
 
+    for (let j = 0; j < 9; j++) {
+        let tile = document.createElement('div');
+        tile.classList.add("tile");
+        tile.id = i * 9 + j;
 
-
-let boardWrapper = document.getElementById("boardWrapper")
-
-
-//want to make the boards js but confused
-
-class BigBoard {
-    addBoards() {
-        for (i = 0; i < 9; i++) {
-            new SmallBoard
-            SmallBoard.addRows
-            SmallBoard.appendChild(SmallRow)
-        }
+        subboard.appendChild(tile);
     }
 
+    return subboard;
 }
-class SmallBoard {
-    addRows() {
-        for (i = 0; i < 9; i++) {
-            new SmallRow
-            SmallRow.addItems
-            SmallRow.appendChild(SmallItem)
-        }
-    }
 
+// Generates the entire board
+for (let i = 0; i < 9; i++) {
+    board_wrapper.appendChild(
+        new_subboard(i)
+    );
 }
-class SmallRow {
-    addItems() {
-        for (i = 0; i < 9; i++) {
-            new SmallItem
-            SmallItem.createItems
-        }
-    }
-}
-class SmallItem {
-    createItem() {
-        document.createElement("div")
-    }
-}
+

@@ -26,13 +26,37 @@ main {
     justify-content: center;
     margin: 0 auto;
 }
-.boardWrapper {
-    aspect-ratio: 1 / 1;
+
+.board {
+    aspect-ratio: 1;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3,  1fr);
+    grid-template-rows: repeat(3,  1fr);
+    gap: 1px;
+    padding: 1px;
+    border: 2px solid black;
 }
-.boardWrapper,
+
+.tile {
+    border: 1px solid black;
+    transition: background-color 50ms ease-out;
+}
+
+.tile:hover {
+    background-color: rgb(128, 128, 128, 0.3);
+}
+
+#board-wrapper {
+    width: 30%;
+    gap: 5px;
+    padding: 5px;
+}
+
 .optionsWrapper {
     border: 1px solid black;
 }
+
 .optionsWrapper button {
     background-color: rgb(52, 181, 80);
     font-weight: bold;    
@@ -69,12 +93,4 @@ main {
 }
 .noDisplay {
     opacity: 0;
-}
-
-.board {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    row-gap: 2%;
-    column-gap: 2%;
 }
