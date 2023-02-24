@@ -35,3 +35,36 @@ for (let i = 0; i < 9; i++) {
     );
 }
 
+
+class TicTacToe {
+    constructor() {
+        this.board = [
+        [0, 0, 0]
+        [0, 0, 0]
+        [0, 0, 0]
+    ]
+    }
+    makeMove(subBoard, index) {
+        
+    }
+    checkWin() {
+        for(let i = 0; i < 3; i++) {
+            if (board[0][i] == board[1][i] == board[2][i]){
+                console.log(board[0][i])
+            }
+        }
+        for(let i = 0; i < 3; i++) {
+            if (board[i][0] == board[i][1] == board[i][2]){
+                console.log(board[i][0])
+            }
+        }
+        if (board[0][0] == board[1][1] == board[2][2]) {
+            console.log(board[0][0])
+        }
+        if (board[0][2] == board[1][1] == board[2][0]) {
+            console.log(board[0][2])
+        }
+    }
+}
+
+let board = new TicTacToe()
