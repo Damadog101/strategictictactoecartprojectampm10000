@@ -97,8 +97,12 @@ main {
 .noDisplay {
     opacity: 0;
 }
+.red {
+    background-color: red;
+}
 
-.rules {
+
+/* .rules {
     width: 100vw;
     display: grid;
     align-content: center;
@@ -135,15 +139,15 @@ main {
     display: flex;
     flex-wrap: wrap;
 }
-.instructions div,
+.instructions div:not(.instructImg),
 .instructions p {
-    width: 50%;
+    width: 70%;
 }
 .instructions img {
-    width: 50%;
+    width: 30%;
 }
 .rulesIntro {
     text-align: center;
     width: 100%;
     padding-bottom: 3%;
-}
+} */

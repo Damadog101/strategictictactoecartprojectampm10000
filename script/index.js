@@ -1,11 +1,6 @@
 let settings = document.getElementById("settingsIcon");
 let settingsPopUp = document.getElementById("settingsPopUp");
-// let toGameButton = document.getElementById("toGame")
-// let rulesPage = document.getElementById("rules")
 
-// toGameButton.addEventListener("click", () => {
-//     rulesPage.classList.add("noDisplay")
-// })
 
 settings.addEventListener("click", () => {
     if (settingsPopUp.classList.contains("noDisplay")) {
@@ -26,7 +21,9 @@ function new_subboard(i) {
         let tile = document.createElement('div');
         tile.classList.add("tile");
         tile.id = i * 9 + j;
-
+        tile.addEventListener("click", () => {
+            tile.classList.add("red")
+        })
         subboard.appendChild(tile);
     }
 
@@ -54,12 +51,12 @@ class TicTacToe {
     ]
     }
     
-   
+    //makes a move
     makeMove(player, x, y) {
         this.board[x][y] = player
     }
 
-
+    //checks for win
     checkWin() {
         for(let i = 0; i < 3; i++) {
             if (board[0][i] == board[1][i] == board[2][i]){
