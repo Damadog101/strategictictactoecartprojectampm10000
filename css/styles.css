@@ -56,6 +56,20 @@ main {
     padding: 5px;
 }
 
+.tileCow {
+    background-image:url(/images/cowe.png) ;
+
+}
+.tileAmogus {
+    background-image:url(/images/amogus.png) ;
+}
+
+
+
+
+
+
+
 .optionsWrapper {
     border: 1px solid black;
 }
@@ -97,57 +111,5 @@ main {
 .noDisplay {
     opacity: 0;
 }
-.red {
-    background-color: red;
-}
 
 
-/* .rules {
-    width: 100vw;
-    display: grid;
-    align-content: center;
-    position: absolute;
-    background-color: white;
-    padding: 2%;
-    background-color: beige;
-}
-.rules * {
-    width: 100%;
-    width: 80%;
-    margin: 0 auto;
-}
-.rules p {
-    font-size: 2rem;
-}
-.rules h2 {
-    font-size: 2.2rem;
-}
-.rules li {
-    font-size: 1.5rem;
-}
-.rules a {
-    font-size: 2rem;
-    border: 1px solid green;
-    background-color: orange;
-    color: green;
-    border-radius: 12px;
-    width: 20%;
-    cursor: pointer;
-}
-.instructions {
-    max-width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-}
-.instructions div:not(.instructImg),
-.instructions p {
-    width: 70%;
-}
-.instructions img {
-    width: 30%;
-}
-.rulesIntro {
-    text-align: center;
-    width: 100%;
-    padding-bottom: 3%;
-} */

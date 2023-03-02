@@ -23,9 +23,7 @@ function new_subboard(i) {
         tile.id = i * 9 + j;
         tile.addEventListener("click", () => {
 
-            //Joke \/
-            tile.classList.add("red")
-            //Joke /\
+       
         })
         subboard.appendChild(tile);
     }
