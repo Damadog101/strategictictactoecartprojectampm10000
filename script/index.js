@@ -10,7 +10,7 @@
 
 
 // Generates Subboards
-function newSubboard(container) {
+function newSubboard() {
     let newSubboard = document.createElement('div');
     newSubboard.classList.add("board");
 
@@ -18,10 +18,6 @@ function newSubboard(container) {
         let newTile = document.createElement('div');
 
         newTile.classList.add("tile", "tileEmpty");
-
-        newTile.addEventListener("click", () => {
-            container.makeMove(j);
-        })
 
         newSubboard.appendChild(newTile);
     }
@@ -76,9 +72,11 @@ class Board {
     makeMove(index, player) {
         //checks for illegal moves
         if (this.board[index] != 0) {
+            alert("bro why u trying to play on an already occupied position u dumb")
             throw new Error("bro why u trying to play on an already occupied position u dumb")
         }
         if (this.isComplete) {
+            alert("bro why u trying to play on an already completed board u dumb")
             throw new Error("bro why u trying to play on an already completed board u dumb")
         }
 
@@ -139,7 +137,7 @@ class Board {
 class TicTacToe {
     constructor() {
 
-        this.display = newSubboard(this)
+        this.display = newSubboard()
 
         this.tiles = this.display.childNodes
 
@@ -207,8 +205,9 @@ class StrategicBoard {
 
             //if player won game do dis
             if (winner) {
-                //log it
-                console.log(`Player ${winner} won the game`)
+                //alert it
+            
+                alert(`Player ${winner} won the game`)
                 return winner
             }
         }
