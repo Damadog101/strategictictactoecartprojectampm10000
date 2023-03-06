@@ -1,31 +1,29 @@
-let settings = document.getElementById("settingsIcon");
-let settingsPopUp = document.getElementById("settingsPopUp");
+// let settings = document.getElementById("settingsIcon");
+// let settingsPopUp = document.getElementById("settingsPopUp");
+// settings.addEventListener("click", () => {
+//     if (settingsPopUp.classList.contains("noDisplay")) {
+//         settingsPopUp.classList.remove("noDisplay")
+//     } else {
+//         settingsPopUp.classList.add("noDisplay")
+//     }
+// })
 
-
-settings.addEventListener("click", () => {
-    if (settingsPopUp.classList.contains("noDisplay")) {
-        settingsPopUp.classList.remove("noDisplay")
-    } else {
-        settingsPopUp.classList.add("noDisplay")
-    }
-})
-
-let board_wrapper = document.getElementById("board-wrapper")
 
 // Generates Subboards
-function newSubboard() {
+function newSubboard(container) {
     let newSubboard = document.createElement('div');
     newSubboard.classList.add("board");
 
     for (let j = 0; j < 9; j++) {
         let newTile = document.createElement('div');
-        newTile.classList.add("tile", "tileEmpty");
-        // tile.id = i * 9 + j;
-        // tile.addEventListener("click", () => {
 
-       
-        // })
-        subboard.appendChild(newTile);
+        newTile.classList.add("tile", "tileEmpty");
+
+        newTile.addEventListener("click", () => {
+            container.makeMove(j);
+        })
+
+        newSubboard.appendChild(newTile);
     }
 
     return newSubboard;
@@ -34,7 +32,7 @@ function newSubboard() {
 //Sets style of tile based on player who occupies tile
 function styleTile(tile, player) {
     tile.classList.remove("tileEmpty");
-    tile.classList.add(player == 1 ? "tileCow" : "tileAmogus");
+    tile.classList.add(player == 1 ? "tileAmogus" : "tileCow");
 }
 
 //Styles subboard based on winner (-1, 1, 2)
@@ -141,7 +139,7 @@ class Board {
 class TicTacToe {
     constructor() {
 
-        this.display = newSubboard()
+        this.display = newSubboard(this)
 
         this.tiles = this.display.childNodes
 
@@ -151,11 +149,84 @@ class TicTacToe {
     // Makes move at specific index and returns result
     makeMove(index, player) {
         let result = this.board.makeMove(index,player)
-    }
 
+        styleTile(this.tiles[index], player)
+
+        if (result !=0) {
+            styleSubboard(this.display, result)
+        }
+
+       
+        return result
+        
+    }  
 }
 
 
 
 
+//The Large Strategic Board Itself
+class StrategicBoard {
+    // Container what will contain the subboards
+    constructor(container) {
+        // Creates array of 9 emtpy spaces, the following operation is run on every empty space
+        this.subboards = new Array(9).fill(null).map(_ => {
+            // Make New Subboard
+            let newBoard = new TicTacToe();
 
+            // Append its Visual Reference
+            container.appendChild(newBoard.display)
+
+            //Return the board to the subBoards Array
+            return newBoard
+        })
+
+        this.board = new Board()
+        
+        this.player = 1
+        this.subboard = null
+    }
+    makeMove(subboard, index) {
+        if (this.subboard != null && subboard != this.subboard) {
+            throw new Error("Bro u dumb u tried to play on da wrong subboard")
+        }
+    
+        // Make move and store move result
+        let result = this.subboards[subboard].makeMove(index, this.player)
+        this.player = -this.player
+    
+    
+        // Set the subboard to be index ONLY IF subboard is empty. otherwise set to null and ded and ahhhhhhh
+        this.subboard = this.board["board"][index] == 0 ? index : null;
+
+        //If a player won that board because of this, run this part
+        if (result != 0) {
+            // track move on larger board
+            let winner = this.board.makeMove(subboard, -this.player)
+
+
+            //if player won game do dis
+            if (winner) {
+                //log it
+                console.log(`Player ${winner} won the game`)
+                return winner
+            }
+        }
+
+        return 0
+    }
+}
+// Reference container
+let boardWrapper = document.getElementById("board-wrapper")
+
+// Make new strategic board contained by container
+let board = new StrategicBoard(boardWrapper)
+
+
+
+// this.tiles = document.querySelectorAll(".tile") 
+// for (let tile of tiles) {
+//     tile.addEventListener("click", () => {
+//         board.makeMove(index, player)
+//     })
+// }

@@ -65,11 +65,18 @@ main {
 
 
 .tileCow {
-    background-image:url(/images/cowe.png) ;
+    /* background-image:url(/images/cowe.png) ;
+    width: 100%;
+    height: auto; */
+    background: linear-gradient(rgb(247, 74, 74), rgb(255, 77, 0));
 
 }
 .tileAmogus {
-    background-image:url(/images/amogus.png) ;
+    /* background-image:url(/images/amogus.png) ;
+    width: 50%;
+    height: auto; */
+    background: linear-gradient(rgb(122, 194, 188), rgb(83, 112, 232));
+
 }
 
 
