@@ -8,17 +8,28 @@
 //     }
 // })
 
+let restart = document.getElementById("restart");
+restart.addEventListener("click", () => {
+    let subBoardsArr = document.querySelectorAll(".subboard")
+    for (let subboard of subBoardsArr) {
+        resetSubboard(subboard);
+    }
+})
+
+
 
 // Generates Subboards
-function newSubboard() {
+function newSubboard(i) {
     let newSubboard = document.createElement('div');
-    newSubboard.classList.add("board");
-
+    newSubboard.classList.add("board", "subboard");
+    newSubboard.id = "0" + i
     for (let j = 0; j < 9; j++) {
+
+
         let newTile = document.createElement('div');
 
         newTile.classList.add("tile", "tileEmpty");
-
+        newTile.id = i * 9 + j;
         newSubboard.appendChild(newTile);
     }
 
@@ -34,7 +45,7 @@ function styleTile(tile, player) {
 //Styles subboard based on winner (-1, 1, 2)
 
 function styleSubboard(subboard, player) {
-    subboard.classList.remove(boardEmpty);
+    subboard.classList.remove("boardEmpty");
 
     switch (player) {
         case 1:
@@ -51,7 +62,7 @@ function styleSubboard(subboard, player) {
 
 // Resets subboard classes
 function resetSubboard(subboard) {
-    subboard.classList.add(boardEmpty)
+    subboard.classList.add("boardEmpty")
     subboard.classList.remove("boardCow", "boardAmogus", "boardDed")
 }
 
@@ -85,13 +96,14 @@ class Board {
 
         // Check Win
         let winner = this.checkWin();
-
+       
         //If winner, updates board info because of it
         if (winner != 0) {
             this.isComplete = true
             this.winner = winner
             return winner
         }
+
         return 0;
     }
 
@@ -135,9 +147,8 @@ class Board {
 }
 
 class TicTacToe {
-    constructor() {
-
-        this.display = newSubboard()
+    constructor(i) {
+        this.display = newSubboard(i)
 
         this.tiles = this.display.childNodes
 
@@ -147,6 +158,7 @@ class TicTacToe {
     // Makes move at specific index and returns result
     makeMove(index, player) {
         let result = this.board.makeMove(index,player)
+        // console.log(result);
 
         styleTile(this.tiles[index], player)
 
@@ -154,9 +166,7 @@ class TicTacToe {
             styleSubboard(this.display, result)
         }
 
-       
-        return result
-        
+        return result;
     }  
 }
 
@@ -168,16 +178,19 @@ class StrategicBoard {
     // Container what will contain the subboards
     constructor(container) {
         // Creates array of 9 emtpy spaces, the following operation is run on every empty space
-        this.subboards = new Array(9).fill(null).map(_ => {
+        this.subboards = new Array(9).fill(null).map((_, i) => {
             // Make New Subboard
-            let newBoard = new TicTacToe();
-
+            let newBoard = new TicTacToe(i);
             // Append its Visual Reference
             container.appendChild(newBoard.display)
 
             //Return the board to the subBoards Array
+
             return newBoard
         })
+
+
+
 
         this.board = new Board()
         
@@ -185,32 +198,35 @@ class StrategicBoard {
         this.subboard = null
     }
     makeMove(subboard, index) {
-        if (this.subboard != null && subboard != this.subboard) {
-            throw new Error("Bro u dumb u tried to play on da wrong subboard")
+        if (this.subboard != null) {
+            if (subboard != this.subboard) {
+                throw new Error("Bro u dumb u tried to play on da wrong subboard")
+            }
         }
     
         // Make move and store move result
         let result = this.subboards[subboard].makeMove(index, this.player)
+        // console.log(result);
         this.player = -this.player
-    
-    
-        // Set the subboard to be index ONLY IF subboard is empty. otherwise set to null and ded and ahhhhhhh
-        this.subboard = this.board["board"][index] == 0 ? index : null;
-
+        
         //If a player won that board because of this, run this part
         if (result != 0) {
             // track move on larger board
             let winner = this.board.makeMove(subboard, -this.player)
-
-
+            
+            
             //if player won game do dis
             if (winner) {
                 //alert it
-            
+                
                 alert(`Player ${winner} won the game`)
                 return winner
             }
         }
+        
+        // Set the subboard to be index ONLY IF subboard is empty. otherwise set to null and ded and ahhhhhhh
+        // console.log(this.board["board"]);
+        this.subboard = this.board["board"][index] == 0 ? index : null;
 
         return 0
     }
@@ -222,10 +238,15 @@ let boardWrapper = document.getElementById("board-wrapper")
 let board = new StrategicBoard(boardWrapper)
 
 
+// let subBoardsArr = document.querySelectorAll(".subboard")
+let tilesArr = document.querySelectorAll(".tile") 
+for (let tile of tilesArr) {
+    tile.addEventListener("click", () => {
+        let subboard = Math.floor(tile.id / 9)
+        let index = tile.id % 9
+        board.makeMove(subboard, index)
+    })
+}
+// for (let subboard of subBoardsArr) {
 
-// this.tiles = document.querySelectorAll(".tile") 
-// for (let tile of tiles) {
-//     tile.addEventListener("click", () => {
-//         board.makeMove(index, player)
-//     })
 // }
