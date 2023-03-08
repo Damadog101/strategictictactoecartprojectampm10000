@@ -79,6 +79,13 @@ main {
 
 }
 
+.boardCow {
+    background: linear-gradient(rgb(200, 74, 74), rgb(255, 77, 50));
+}
+.boardAmogus {
+    background: linear-gradient(rgb(150, 194, 188), rgb(83, 112, 255));
+
+}
 
 
 

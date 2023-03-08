@@ -57,10 +57,10 @@ function styleSubboard(subboard, player) {
 
     switch (player) {
         case 1:
-            subboard.classList.add("boardCow");
+            subboard.classList.add("boardAmogus");
             break
         case -1:
-            subboard.classList.add("boardAmogus");
+            subboard.classList.add("boardCow");
             break
         case 2:
             subboard.classList.add("boardDed");
@@ -128,30 +128,39 @@ class Board {
     // Function to Check Win
     checkWin() {
         let board = this.board;
+        console.log(board[0], board[1], board[2], board[3], board[4], board[5], board[6], board[7], board[8], )
 
         // Forward Diagonal Win
         if (board[0] == board[4] && board[0] == board[8]) {
+            // console.log(`FW Diagonal Wins Check: ${board[0]}, ${board[4]}, ${board[8]} `)
+
             return board[0]
+        } else if (board[2] == board[4] && board[2] == board[6]) {
+            // console.log(`BW Diagonal Wins Check: ${board[2]}, ${board[4]}, ${board[6]} `)
+
+            return board[2]
+        } else {
+            for(let i = 0; i < 3; i++) {
+                let col = i * 3
+    
+                // Check Horizontal Wins
+                if (board[col] == board[col + 1] && board[col] == board[col + 2]) {
+                    // console.log(`Horizontal: ${board[col]}, ${board[col + 1]}, ${board[col + 2]} `)
+                    return board[col]
+                }
+    
+                //Check Verticle Wins
+                if (board[i] == board[i + 3] && board[i] == board[i + 6]) {
+                    console.log(`Verticle Wins Check: ${board[i]}, ${board[i + 3]}, ${board[i + 6]} `)
+                    return board[i]
+                }
+            }
         }
  
         // Backwards Diagonal Win
-        if (board[2] == board[4] && board[2] == board[6]) {
-            return board[2]
-        }
+        
 
-        for(let i = 0; i < 3; i++) {
-            let col = i * 3
-
-            // Check Horizontal Wins
-            if (board[col] == board[col + 1] && board[col] == board[col + 2]) {
-                return board[col]
-            }
-
-            //Check Verticle Wins
-            if (board[i] == board[i + 3] && board[i] == board[i + 6]) {
-                return board[i]
-            }
-        }
+        
         
         // Draw Case
         if (!this.board.includes(0)) {
@@ -228,6 +237,7 @@ class StrategicBoard {
         
         //If a player won that board because of this, run this part
         if (result != 0) {
+            console.log(result)
             // track move on larger board
             let winner = this.board.makeMove(subboard, -this.player)
             
