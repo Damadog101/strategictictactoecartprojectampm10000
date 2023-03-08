@@ -8,11 +8,14 @@
 //     }
 // })
 
-let restart = document.getElementById("restart");
-restart.addEventListener("click", () => {
+let restartButton = document.getElementById("restart");
+restartButton.addEventListener("click", () => {
     let subBoardsArr = document.querySelectorAll(".subboard")
     for (let subboard of subBoardsArr) {
         resetSubboard(subboard);
+    }
+    for (let tile of tilesArr) {
+        resetTiles(tile)
     }
 })
 
@@ -65,7 +68,10 @@ function resetSubboard(subboard) {
     subboard.classList.add("boardEmpty")
     subboard.classList.remove("boardCow", "boardAmogus", "boardDed")
 }
-
+function resetTiles(tile) {
+    tile.classList.add("tileEmpty")
+    tile.classList.remove("tileAmogus", "tileCow")
+}
 
 // Represents the functionality but not the style of the tic tac toe board
 class Board {
@@ -200,6 +206,7 @@ class StrategicBoard {
     makeMove(subboard, index) {
         if (this.subboard != null) {
             if (subboard != this.subboard) {
+                alert("Bro u dumb u tried to play on da wrong subboard")
                 throw new Error("Bro u dumb u tried to play on da wrong subboard")
             }
         }
