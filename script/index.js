@@ -17,6 +17,9 @@ restartButton.addEventListener("click", () => {
     for (let tile of tilesArr) {
         resetTiles(tile)
     }
+    board.resetIndex()
+    board.player = 1
+    board.subboard = null
 })
 
 
@@ -68,6 +71,7 @@ function resetSubboard(subboard) {
     subboard.classList.add("boardEmpty")
     subboard.classList.remove("boardCow", "boardAmogus", "boardDed")
 }
+// Resets tiles classes
 function resetTiles(tile) {
     tile.classList.add("tileEmpty")
     tile.classList.remove("tileAmogus", "tileCow")
@@ -82,7 +86,11 @@ class Board {
         this.isComplete = false;
     }
     
-
+    resetIndex() {
+        this.board = [
+            0, 0, 0, 0, 0, 0, 0, 0, 0
+        ]
+    }
 
 
     // Makes a move if possible, throw error if cant make move
