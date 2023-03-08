@@ -13,13 +13,15 @@ restartButton.addEventListener("click", () => {
     let subBoardsArr = document.querySelectorAll(".subboard")
     for (let subboard of subBoardsArr) {
         resetSubboard(subboard);
+    
     }
     for (let tile of tilesArr) {
         resetTiles(tile)
     }
-    board.resetIndex()
+    
     board.player = 1
     board.subboard = null
+    board.reset()
 })
 
 
@@ -244,6 +246,29 @@ class StrategicBoard {
         this.subboard = this.board["board"][index] == 0 ? index : null;
 
         return 0
+    }
+
+    reset() {
+        this.subboards.forEach((subboard) => {
+            subboard.board.resetIndex();
+            subboard.board.isComplete = false
+        })
+        // let subBoardsArr = document.querySelectorAll(".subboard")
+        // for (let subboard of subBoardsArr) {
+        //     resetSubboard(subboard);
+        // }
+        // for (let tile of tilesArr) {
+        //     resetTiles(tile)
+        // }
+        // board.resetIndex()
+        // this.subboards.forEach((subboard) => {
+        //     resetSubboard(subboard);
+        // })
+        // for (let tile of tilesArr) {
+        //     resetTiles(tile)
+        // }
+        // board.player = 1
+        // board.subboard = null
     }
 }
 // Reference container
