@@ -63,13 +63,11 @@ main {
 }
 
 
-
 .tileCow {
     /* background-image:url(/images/cowe.png) ;
     width: 100%;
     height: auto; */
     background: linear-gradient(rgb(247, 74, 74), rgb(255, 77, 0));
-
 }
 .tileAmogus {
     /* background-image:url(/images/amogus.png) ;
@@ -80,10 +78,16 @@ main {
 }
 
 .boardCow {
-    background: linear-gradient(rgb(200, 74, 74), rgb(255, 77, 50));
+    background: linear-gradient(rgb(200, 74, 74, 0.75), rgb(255, 77, 50,0.75));
+    background-color: rgb(0, 0, 255, 0.75);
+    position: relative;
+
 }
 .boardAmogus {
-    background: linear-gradient(rgb(150, 194, 188), rgb(83, 112, 255));
+    background: linear-gradient(rgb(150, 194, 188,0.75), rgb(83, 112, 255, 0.75));
+    position: relative;
+    background-color: rgb(144, 238, 144, 0.75);
+
 
 }
 
