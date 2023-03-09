@@ -99,12 +99,12 @@ class Board {
     makeMove(index, player) {
         //checks for illegal moves
         if (this.board[index] != 0) {
-            alert("bro why u trying to play on an already occupied position u dumb")
-            throw new Error("bro why u trying to play on an already occupied position u dumb")
+            // alert(""You tried to play on an already occupied tile!"")
+            throw new Error("You tried to play on an already occupied tile!")
         }
         if (this.isComplete) {
-            alert("bro why u trying to play on an already completed board u dumb")
-            throw new Error("bro why u trying to play on an already completed board u dumb")
+            alert("You tried to play on an already completed board!")
+            throw new Error("You tried to play on an already completed board!")
         }
 
         // Make the move
@@ -128,7 +128,7 @@ class Board {
     // Function to Check Win
     checkWin() {
         let board = this.board;
-        // console.log(board[0], board[1], board[2], board[3], board[4], board[5], board[6], board[7], board[8], )
+        console.log(board[0], board[1], board[2], board[3], board[4], board[5], board[6], board[7], board[8], )
 
         // Forward Diagonal Win
         if (board[0] != 0 && board[0] == board[4] && board[0] == board[8]) {
@@ -223,18 +223,29 @@ class StrategicBoard {
         this.subboard = null
     }
     makeMove(subboard, index) {
+        
+        //code is to add the inPlay highlights but no work yet {
+        let subboardID = document.getElementById("0" + subboard)
+        subboardID.classList.add("inPlay")
+        subboardID.classList.remove("inPlay")
+        // } code is to add the inPlay highlights but no work yet 
+
+
+
         if (this.subboard != null) {
             if (subboard != this.subboard) {
-                alert("Bro u dumb u tried to play on da wrong subboard")
-                throw new Error("Bro u dumb u tried to play on da wrong subboard")
+                alert("You tried to play on the wrong board!")
+                throw new Error("You tried to play on the wrong board!")
             }
         }
     
         // Make move and store move result
         let result = this.subboards[subboard].makeMove(index, this.player)
-        // console.log(result);
+
+
         this.player = -this.player
-        
+
+
         //If a player won that board because of this, run this part
         if (result != 0) {
             console.log(result)
@@ -263,22 +274,7 @@ class StrategicBoard {
             subboard.board.resetIndex();
             subboard.board.isComplete = false
         })
-        // let subBoardsArr = document.querySelectorAll(".subboard")
-        // for (let subboard of subBoardsArr) {
-        //     resetSubboard(subboard);
-        // }
-        // for (let tile of tilesArr) {
-        //     resetTiles(tile)
-        // }
-        // board.resetIndex()
-        // this.subboards.forEach((subboard) => {
-        //     resetSubboard(subboard);
-        // })
-        // for (let tile of tilesArr) {
-        //     resetTiles(tile)
-        // }
-        // board.player = 1
-        // board.subboard = null
+        
     }
 }
 // Reference container
@@ -297,6 +293,3 @@ for (let tile of tilesArr) {
         board.makeMove(subboard, index)
     })
 }
-// for (let subboard of subBoardsArr) {
-
-// }
