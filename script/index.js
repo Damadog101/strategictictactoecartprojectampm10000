@@ -52,26 +52,26 @@ function newSubboard(i) {
 //Sets style of tile based on player who occupies tile
 function styleTile(tile, player) {
     tile.classList.remove("tileEmpty");
-    tile.classList.add(player == 1 ? "tileAmogus" : "tileCow");
+    tile.classList.add(player == 1 ? "tilePlayerOne" : "tilePlayerTwo");
 }
 
-function amogusWinner() {
-    let amogusWin = document.createElement("div");
-    amogusWin.classList.add("boardAmogus")
-    return amogusWin
+function playerOneWinner() {
+    let playerOneWin = document.createElement("div");
+    playerOneWin.classList.add("boardPlayerOne")
+    return playerOneWin
 }
 
-function cowWinner() {
-    let cowWin = document.createElement("div");
-    cowWin.classList.add("boardCow");
-    return cowWin
+function playerTwoWinner() {
+    let playerTwoWin = document.createElement("div");
+    playerTwoWin.classList.add("boardPlayerTwo");
+    return playerTwoWin
 
 }
 
-function dedWinner() {
-    let dedWin = document.createElement("div");
-    dedWin.classList.add("boardDed");
-    return dedWin
+function drawnGame() {
+    let draw = document.createElement("div");
+    draw.classList.add("boardDraw");
+    return draw
 }
 
 
@@ -81,13 +81,13 @@ function dedWinner() {
 function styleSubboard(subboard, player) {    
     switch (player) {
         case 1:
-            subboard.appendChild(amogusWinner());
+            subboard.appendChild(playerOneWinner());
             break
         case -1:
-            subboard.appendChild(cowWinner());
+            subboard.appendChild(playerTwoWinner());
             break
         case 2:
-            subboard.appendChild(dedWinner());
+            subboard.appendChild(drawnGame());
             break
     }
 }
@@ -100,18 +100,18 @@ function clear_all(items) {
 
 // Resets subboard classes
 function resetSubboard() {
-    let boardAmogus = document.querySelectorAll(".boardAmogus")
-    let boardCow = document.querySelectorAll(".boardCow")
-    let boardDed = document.querySelectorAll(".boardDed")
+    let boardPlayerOne = document.querySelectorAll(".boardPlayerOne")
+    let boardPlayerTwo = document.querySelectorAll(".boardPlayerTwo")
+    let boardDraw = document.querySelectorAll(".boardDraw")
 
-    clear_all(boardAmogus);
-    clear_all(boardCow);
-    clear_all(boardDed);
+    clear_all(boardPlayerOne);
+    clear_all(boardPlayerTwo);
+    clear_all(boardDraw);
 }
 // Resets tiles classes
 function resetTiles(tile) {
     tile.classList.add("tileEmpty")
-    tile.classList.remove("tileAmogus", "tileCow")
+    tile.classList.remove("tilePlayerOne", "tilePlayerTwo")
 }
 
 // Represents the functionality but not the style of the tic tac toe board
@@ -297,7 +297,7 @@ class StrategicBoard {
             }
         }
         
-        // Set the subboard to be index ONLY IF subboard is empty. otherwise set to null and ded and ahhhhhhh
+        // Set the subboard to be index ONLY IF subboard is empty. Otherwise set it to null
         // console.log(this.board["board"]);
         this.subboard = this.board["board"][index] == 0 ? index : null;
 

@@ -3,10 +3,10 @@
     padding: 0;
     box-sizing: border-box;
 }
-/* body {
+body {
     background: linear-gradient(to left, rgb(142, 253, 23), rgb(3, 146, 255));
 
-} */
+}
 
 .settings {
     width: 100%;
@@ -71,13 +71,13 @@ main {
 }
 
 
-.tileCow {
+.tilePlayerTwo {
     /* background-image:url(/images/cowe.png) ;
     width: 100%;
     height: auto; */
     background: linear-gradient(rgb(247, 74, 74), rgb(255, 77, 0));
 }
-.tileAmogus {
+.tilePlayerOne {
     /* background-image:url(/images/amogus.png) ;
     width: 50%;
     height: auto; */
@@ -94,7 +94,7 @@ main {
 
 }
 
-.boardCow {
+.boardPlayerTwo {
     background: linear-gradient(rgb(200, 74, 74, 0.75), rgb(255, 77, 50,0.75));
     /* background-color: rgb(0, 0, 255, 0.75); */
     height: 100%;
@@ -103,7 +103,7 @@ main {
 
 
 }
-.boardAmogus {
+.boardPlayerOne {
     background: linear-gradient(rgb(150, 194, 188,0.75), rgb(83, 112, 255, 0.75));
     /* background-color: rgb(144, 238, 144, 0.75); */
     position: absolute;
@@ -112,7 +112,7 @@ main {
 
 }
 
-.boardDed {
+.boardDraw {
     background-color: rgb(0, 0, 0, 0.75);
     position: absolute;
     height: 100%;
