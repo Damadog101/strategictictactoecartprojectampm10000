@@ -8,11 +8,15 @@
 //     }
 // })
 
+
+
 let restartButton = document.getElementById("restart");
+
+//Restarts Game
 restartButton.addEventListener("click", () => {
     let subBoardsArr = document.querySelectorAll(".subboard")
     for (let subboard of subBoardsArr) {
-        resetSubboard(subboard);
+        resetSubboard();
     
     }
     for (let tile of tilesArr) {
@@ -50,34 +54,71 @@ function styleTile(tile, player) {
     tile.classList.add(player == 1 ? "tileAmogus" : "tileCow");
 }
 
+function amogusWinner() {
+    let amogusWin = document.createElement("div");
+    amogusWin.classList.add("boardAmogus")
+    console.log(amogusWin)
+    amogusWin.id = "amogusWin"
+    return amogusWin
+}
+
+function cowWinner() {
+    let cowWin = document.createElement("div");
+    cowWin.classList.add("boardCow");
+    console.log(cowWin)
+    cowWin.id = "cowWin"
+    return cowWin
+
+}
+
+function dedWinner() {
+    let dedWin = document.createElement("div");
+    dedWin.classList.add("boardDed");
+    console.log(dedWin)
+    dedWin.id = "dedWin"
+    return dedWin
+}
+
+
+
 //Styles subboard based on winner (-1, 1, 2)
 
-function styleSubboard(subboard, player) {
-    // subboard.classList.remove("boardEmpty");
-    let amogusWin = document.createElement("div");
-    let cowWin = document.createElement("div");
-    let dedWin = document.createElement("div");
-    amogusWin.classList.add("boardAmogus")
-    cowWin.classList.add("boardCow");
-    dedWin.classList.add("boardDed");
-    
+function styleSubboard(subboard, player) {    
     switch (player) {
         case 1:
-            subboard.appendChild(amogusWin);
+            subboard.appendChild(amogusWinner());
             break
         case -1:
-            subboard.appendChild(cowWin);
+            subboard.appendChild(cowWinner());
             break
         case 2:
-            subboard.appendChild(dedWin);
+            subboard.appendChild(dedWinner());
             break
     }
 }
 
 // Resets subboard classes
-function resetSubboard(subboard) {
-    subboard.classList.add("boardEmpty")
-    subboard.classList.remove("boardCow", "boardAmogus", "boardDed")
+function resetSubboard() {
+    let amogusWin = document.getElementById("amogusWin")
+    let cowWin = document.getElementById("cowWin")
+    let dedWin = document.getElementById("dedWin")
+    let amogusParent = amogusWin.parentNode
+    let cowParent = cowWin.parentNode
+    let dedParent = dedWin.parentNode
+
+    console.log(cowWin)
+    console.log(cowParent)
+
+    amogusParent.removeChild(amogusWin)
+    cowParent.removeChild(cowWin)
+    dedParent.removeChild(dedWin)
+
+
+    // amogusWin.remove()
+    // cowWin.remove()
+    // dedWin.remove()
+    
+
 }
 // Resets tiles classes
 function resetTiles(tile) {
