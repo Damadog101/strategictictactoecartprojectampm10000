@@ -14,11 +14,12 @@ let restartButton = document.getElementById("restart");
 
 //Restarts Game
 restartButton.addEventListener("click", () => {
-    let subBoardsArr = document.querySelectorAll(".subboard")
-    for (let subboard of subBoardsArr) {
-        resetSubboard();
+    // let subBoardsArr = document.querySelectorAll(".subboard")
+    // for (let subboard of subBoardsArr) {
     
-    }
+    // }
+    resetSubboard();
+
     for (let tile of tilesArr) {
         resetTiles(tile)
     }
@@ -97,28 +98,21 @@ function styleSubboard(subboard, player) {
     }
 }
 
+function clear_all(items) {
+    items.forEach(item => {
+        item.remove();
+    })
+}
+
 // Resets subboard classes
 function resetSubboard() {
-    let amogusWin = document.getElementById("amogusWin")
-    let cowWin = document.getElementById("cowWin")
-    let dedWin = document.getElementById("dedWin")
-    let amogusParent = amogusWin.parentNode
-    let cowParent = cowWin.parentNode
-    let dedParent = dedWin.parentNode
-
-    console.log(cowWin)
-    console.log(cowParent)
-
-    amogusParent.removeChild(amogusWin)
-    cowParent.removeChild(cowWin)
-    dedParent.removeChild(dedWin)
-
-
-    // amogusWin.remove()
-    // cowWin.remove()
-    // dedWin.remove()
+    let boardAmogus = document.querySelectorAll(".boardAmogus")
+    let boardCow = document.querySelectorAll(".boardCow")
+    let boardDed = document.querySelectorAll(".boardDed")
     
-
+    clear_all(boardAmogus);
+    clear_all(boardCow);
+    clear_all(boardDed);
 }
 // Resets tiles classes
 function resetTiles(tile) {
