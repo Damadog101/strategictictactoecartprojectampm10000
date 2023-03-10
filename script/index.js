@@ -53,17 +53,23 @@ function styleTile(tile, player) {
 //Styles subboard based on winner (-1, 1, 2)
 
 function styleSubboard(subboard, player) {
-    subboard.classList.remove("boardEmpty");
-
+    // subboard.classList.remove("boardEmpty");
+    let amogusWin = document.createElement("div");
+    let cowWin = document.createElement("div");
+    let dedWin = document.createElement("div");
+    amogusWin.classList.add("boardAmogus")
+    cowWin.classList.add("boardCow");
+    dedWin.classList.add("boardDed");
+    
     switch (player) {
         case 1:
-            subboard.classList.add("boardAmogus");
+            subboard.appendChild(amogusWin);
             break
         case -1:
-            subboard.classList.add("boardCow");
+            subboard.appendChild(cowWin);
             break
         case 2:
-            subboard.classList.add("boardDed");
+            subboard.appendChild(dedWin);
             break
     }
 }
