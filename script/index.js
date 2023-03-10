@@ -171,6 +171,7 @@ class Board {
             return board[0]
         }
 
+        // Backwards Diagonal Win
         if (board[2] != 0 && board[2] == board[4] && board[2] == board[6]) {
             console.log(`BW Diagonal Wins Check: ${board[2]}, ${board[4]}, ${board[6]} `)
             return board[2]
@@ -192,7 +193,6 @@ class Board {
             } 
         }
         
-        // Backwards Diagonal Win
         
 
         
@@ -260,12 +260,14 @@ class StrategicBoard {
     makeMove(subboard, index) {
         
         //code is to add the inPlay highlights but no work yet {
-        let subboardID = document.getElementById("0" + subboard)
-        subboardID.classList.add("inPlay")
-        subboardID.classList.remove("inPlay")
+
+        console.log(this.subboards[1])
+
+        // this.subboards[this.subboard].classList.remove("inPlay")
         // } code is to add the inPlay highlights but no work yet 
 
 
+        console.log(`You just played on board: ${subboard}`)
 
         if (this.subboard != null) {
             if (subboard != this.subboard) {
@@ -300,6 +302,8 @@ class StrategicBoard {
         // Set the subboard to be index ONLY IF subboard is empty. Otherwise set it to null
         // console.log(this.board["board"]);
         this.subboard = this.board["board"][index] == 0 ? index : null;
+        console.log(`Play next on board: ${this.subboard}`)
+        // this.subboards[this.subboard].classList.add("inPlay")
 
         return 0
     }
