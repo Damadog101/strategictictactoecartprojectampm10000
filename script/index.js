@@ -58,16 +58,12 @@ function styleTile(tile, player) {
 function amogusWinner() {
     let amogusWin = document.createElement("div");
     amogusWin.classList.add("boardAmogus")
-    console.log(amogusWin)
-    amogusWin.id = "amogusWin"
     return amogusWin
 }
 
 function cowWinner() {
     let cowWin = document.createElement("div");
     cowWin.classList.add("boardCow");
-    console.log(cowWin)
-    cowWin.id = "cowWin"
     return cowWin
 
 }
@@ -75,8 +71,6 @@ function cowWinner() {
 function dedWinner() {
     let dedWin = document.createElement("div");
     dedWin.classList.add("boardDed");
-    console.log(dedWin)
-    dedWin.id = "dedWin"
     return dedWin
 }
 
@@ -109,7 +103,7 @@ function resetSubboard() {
     let boardAmogus = document.querySelectorAll(".boardAmogus")
     let boardCow = document.querySelectorAll(".boardCow")
     let boardDed = document.querySelectorAll(".boardDed")
-    
+
     clear_all(boardAmogus);
     clear_all(boardCow);
     clear_all(boardDed);
