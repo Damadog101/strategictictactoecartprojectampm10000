@@ -14,10 +14,10 @@ let restartButton = document.getElementById("restart");
 
 //Restarts Game
 restartButton.addEventListener("click", () => {
-    // let subBoardsArr = document.querySelectorAll(".subboard")
-    // for (let subboard of subBoardsArr) {
-    
-    // }
+    let subBoardsArr = document.querySelectorAll(".subboard")
+    for (let subboard of subBoardsArr) {
+        subboard.classList.remove("inPlay")
+    }
     resetSubboard();
 
     for (let tile of tilesArr) {
@@ -249,8 +249,7 @@ class StrategicBoard {
             return newBoard
         })
 
-
-
+    
 
         this.board = new Board()
         
@@ -259,15 +258,40 @@ class StrategicBoard {
     }
     makeMove(subboard, index) {
         
-        //code is to add the inPlay highlights but no work yet {
 
-        console.log(this.subboards[1])
+        // console.log("subboard: " + subboard)
+
+
+        // let nextBoard = document.getElementById("0" + subboard)
+        // nextBoard.classList.remove("inPlay")
+
+
+
+
+        // for (let subB in this.subboards) {
+        //     console.log("subB: " + subB)
+        //     console.log("this.subboard: " + this.subboard)
+        //     if (subB == this.subboard) {
+        //         nextBoard.classList.add("inPlay")
+        //     } else if (this.subboard == null) {
+        //         nextBoard.classList.add("inPlay")
+        //     }
+        // }
+
+
+
+        // let nextBoard = document.getElementById("0" + subboard)
+        // nextBoard.classList.remove("inPlay")
+        // if (subboard = this.subboard) {
+        //     nextBoard.classList.add("inPlay")
+        // } else if (this.subboard == null) {
+        //     nextBoard.classList.add("inPlay")
+        // }
+
 
         // this.subboards[this.subboard].classList.remove("inPlay")
-        // } code is to add the inPlay highlights but no work yet 
 
-
-        console.log(`You just played on board: ${subboard}`)
+        // console.log(`You just played on board: ${subboard}`)
 
         if (this.subboard != null) {
             if (subboard != this.subboard) {
@@ -290,20 +314,32 @@ class StrategicBoard {
             let winner = this.board.makeMove(subboard, -this.player)
             
             
-            //if player won game do dis
+            //if player won game do this
             if (winner) {
                 //alert it
-                
-                alert(`Player ${winner} won the game`)
+                switch (winner) {
+                    case 1:
+                        alert(`Player 1 won the game`)
+                        break
+                    case -1:
+                        alert(`Player 2 won the game`)
+                        break
+                    case 2:
+                        alert(`The game was a Draw`)
+                        break
+                    default:
+                        console.log("hmmmmmmmmmmm")
+                        break
+                }
                 return winner
             }
         }
         
         // Set the subboard to be index ONLY IF subboard is empty. Otherwise set it to null
+    
         // console.log(this.board["board"]);
         this.subboard = this.board["board"][index] == 0 ? index : null;
-        console.log(`Play next on board: ${this.subboard}`)
-        // this.subboards[this.subboard].classList.add("inPlay")
+        // console.log(`Play next on board: ${this.subboard}`)
 
         return 0
     }
