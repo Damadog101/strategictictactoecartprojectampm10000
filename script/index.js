@@ -257,22 +257,11 @@ class StrategicBoard {
         this.subboard = null
     }
     makeMove(subboard, index) {
-        
-
-
-
         // Removes the inPlay class from all subBoards
         for (let subB in this.subboards) {
             let curBoard = document.getElementById("0" + subB)
             curBoard.classList.remove("inPlay")
         }
-
-
-
-        
-
-
-
        
         // Throws error if you play on the wrong board
         if (this.subboard != null) {
@@ -284,17 +273,13 @@ class StrategicBoard {
     
         // Make move and store move result
         let result = this.subboards[subboard].makeMove(index, this.player)
-
-
         this.player = -this.player
-
 
         //If a player won that board because of this, run this part
         if (result != 0) {
             console.log(result)
             // track move on larger board
             let winner = this.board.makeMove(subboard, -this.player)
-            
             
             //if player won game do this
             if (winner) {
@@ -330,16 +315,8 @@ class StrategicBoard {
                 nextBoard.classList.add("inPlay")
             } else if (this.subboard == null) {
                 nextBoard.classList.add("inPlay")
-            } else if (Board.isComplete == true) {
-                
             }
         }
-
-
-
-
-
-
 
         console.log("player: " + this.player)
         console.log("this.subboard: " + this.subboard)
