@@ -1,12 +1,12 @@
-// let settings = document.getElementById("settingsIcon");
-// let settingsPopUp = document.getElementById("settingsPopUp");
-// settings.addEventListener("click", () => {
-//     if (settingsPopUp.classList.contains("noDisplay")) {
-//         settingsPopUp.classList.remove("noDisplay")
-//     } else {
-//         settingsPopUp.classList.add("noDisplay")
-//     }
-// })
+let settings = document.getElementById("settingsIcon");
+let settingsPopUp = document.getElementById("settingsPopUp");
+settings.addEventListener("click", () => {
+    if (settingsPopUp.classList.contains("noDisplay")) {
+        settingsPopUp.classList.remove("noDisplay")
+    } else {
+        settingsPopUp.classList.add("noDisplay")
+    }
+})
 
 
 
@@ -259,40 +259,22 @@ class StrategicBoard {
     makeMove(subboard, index) {
         
 
-        // console.log("subboard: " + subboard)
 
 
-        // let nextBoard = document.getElementById("0" + subboard)
-        // nextBoard.classList.remove("inPlay")
-
-
-
-
-        // for (let subB in this.subboards) {
-        //     console.log("subB: " + subB)
-        //     console.log("this.subboard: " + this.subboard)
-        //     if (subB == this.subboard) {
-        //         nextBoard.classList.add("inPlay")
-        //     } else if (this.subboard == null) {
-        //         nextBoard.classList.add("inPlay")
-        //     }
-        // }
+        // Removes the inPlay class from all subBoards
+        for (let subB in this.subboards) {
+            let curBoard = document.getElementById("0" + subB)
+            curBoard.classList.remove("inPlay")
+        }
 
 
 
-        // let nextBoard = document.getElementById("0" + subboard)
-        // nextBoard.classList.remove("inPlay")
-        // if (subboard = this.subboard) {
-        //     nextBoard.classList.add("inPlay")
-        // } else if (this.subboard == null) {
-        //     nextBoard.classList.add("inPlay")
-        // }
+        
 
 
-        // this.subboards[this.subboard].classList.remove("inPlay")
 
-        // console.log(`You just played on board: ${subboard}`)
-
+       
+        // Throws error if you play on the wrong board
         if (this.subboard != null) {
             if (subboard != this.subboard) {
                 alert("You tried to play on the wrong board!")
@@ -336,10 +318,32 @@ class StrategicBoard {
         }
         
         // Set the subboard to be index ONLY IF subboard is empty. Otherwise set it to null
-    
-        // console.log(this.board["board"]);
         this.subboard = this.board["board"][index] == 0 ? index : null;
-        // console.log(`Play next on board: ${this.subboard}`)
+  
+
+
+        // Adds the inPlay class to the next board
+        let nextBoard = document.getElementById("0" + this.subboard)
+        for (let subB in this.subboards) {
+            
+            if (subB == this.subboard) {
+                nextBoard.classList.add("inPlay")
+            } else if (this.subboard == null) {
+                nextBoard.classList.add("inPlay")
+            } else if (Board.isComplete == true) {
+                
+            }
+        }
+
+
+
+
+
+
+
+        console.log("player: " + this.player)
+        console.log("this.subboard: " + this.subboard)
+
 
         return 0
     }
