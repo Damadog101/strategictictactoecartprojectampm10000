@@ -33,20 +33,38 @@
     <main>
       <div class="playerOneOptions">
         <h3>Player 1</h3>
-        <button id="player1" class="player2">
-          Human
-          <i class="fa-solid fa-caret-down"></i>
-        </button>
+        <div class="playerOneDropdown">
+          <button onclick="playerOneDropdown()" id="player1" class="player1">
+            Human
+            <i class="fa-solid fa-caret-down"></i>
+          </button>
+          <div class="noDisplay" id="playerOneDropdown">
+            <button>Human</button>
+            <button>AI 1</button>
+            <button>AI 2</button>
+            <button>AI 3</button>
+          </div>
+        </div>
       </div>
+
       <div id="board-wrapper" class="board board-wrapper">
         <!-- Generated with code -->
       </div>
+
       <div class="playerTwoOptions">
         <h3>Player 2</h3>
-        <button id="player2" class="player2">
-          Human
-          <i class="fa-solid fa-caret-down"></i>
-        </button>
+        <div class="playerOneDropdown">
+          <button onclick="playerTwoDropdown()" id="player2" class="player2">
+            Human
+            <i class="fa-solid fa-caret-down"></i>
+          </button>
+          <div class="noDisplay dropdownContent" id="playerTwoDropdown">
+            <button>Human</button>
+            <button>AI 1</button>
+            <button>AI 2</button>
+            <button>AI 3</button>
+          </div>
+        </div>
       </div>
       <div class="restartWrapper">
         <button id="restart" class="restart">Restart Game</button>

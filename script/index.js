@@ -8,6 +8,31 @@ settings.addEventListener("click", () => {
     }
 })
 
+function playerOneDropdown() {
+    document.getElementById("playerOneDropdown").classList.toggle("noDisplay");
+}
+function playerTwoDropdown() {
+    document.getElementById("playerTwoDropdown").classList.toggle("noDisplay");
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+      let dropdowns = document.getElementsByClassName("dropdown-content");
+      let i;
+      for (i = 0; i < dropdowns.length; i++) {
+        let openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('noDisplay')) {
+          openDropdown.classList.remove('noDisplay');
+        }
+      }
+    }
+  }
+
+
+
+
+
+
 
 
 let restartButton = document.getElementById("restart");
@@ -27,6 +52,7 @@ restartButton.addEventListener("click", () => {
     board.player = 1
     board.subboard = null
     board.reset()
+    board.winner = 0
 })
 
 
@@ -258,10 +284,7 @@ class StrategicBoard {
     }
     makeMove(subboard, index) {
         // Removes the inPlay class from all subBoards
-        for (let subB in this.subboards) {
-            let curBoard = document.getElementById("0" + subB)
-            curBoard.classList.remove("inPlay")
-        }
+        
        
         // Throws error if you play on the wrong board
         if (this.subboard != null) {
@@ -269,6 +292,11 @@ class StrategicBoard {
                 alert("You tried to play on the wrong board!")
                 throw new Error("You tried to play on the wrong board!")
             }
+        }
+
+        for (let subB in this.subboards) {
+            let curBoard = document.getElementById("0" + subB)
+            curBoard.classList.remove("inPlay")
         }
     
         // Make move and store move result
@@ -304,24 +332,19 @@ class StrategicBoard {
         
         // Set the subboard to be index ONLY IF subboard is empty. Otherwise set it to null
         this.subboard = this.board["board"][index] == 0 ? index : null;
-  
 
-
-        // Adds the inPlay class to the next board
-        let nextBoard = document.getElementById("0" + this.subboard)
-        for (let subB in this.subboards) {
-            
-            if (subB == this.subboard) {
-                nextBoard.classList.add("inPlay")
-            } else if (this.subboard == null) {
-                nextBoard.classList.add("inPlay")
+        this.subboards.forEach((board, index) => {
+            if (this.subboard != null && index != this.subboard || board.board.isComplete) {
+                return;
             }
-        }
+
+            board.display.classList.add("inPlay");
+        })
 
         console.log("player: " + this.player)
         console.log("this.subboard: " + this.subboard)
 
-
+        console.log("winner: " + board.winner)
         return 0
     }
 
