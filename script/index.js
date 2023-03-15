@@ -171,17 +171,6 @@ class Board {
 	// Function to Check Win
 	checkWin() {
 		let board = this.board;
-		console.log(
-			board[0],
-			board[1],
-			board[2],
-			board[3],
-			board[4],
-			board[5],
-			board[6],
-			board[7],
-			board[8]
-		);
 
 		// Forward Diagonal Win
 		if (board[0] != 0 && board[0] == board[4] && board[0] == board[8]) {
@@ -281,6 +270,7 @@ class StrategicBoard {
 		this.player = 1;
 		this.subboard = null;
 	}
+
 	makeMove(subboard, index) {
 		// Removes the inPlay class from all subBoards
 
@@ -320,9 +310,6 @@ class StrategicBoard {
 					case 2:
 						alert(`The game was a Draw`);
 						break;
-					default:
-						console.log("hmmmmmmmmmmm");
-						break;
 				}
 				return winner;
 			}
@@ -356,6 +343,71 @@ class StrategicBoard {
 		});
 	}
 }
+
+// Minimax AI Implementation
+
+class AIBoard {
+	constructor() {
+		// Score is who is has the best position. Positive if 1 is winning, Negative if 2 is winning.
+		this.score = 0;
+
+		this.moveHistory = [];
+
+		// Used for scoring boards
+		this.columnTally = [0, 0, 0];
+		this.rowTally = [0, 0, 0];
+		// [0] = forward diagonal, [1] = backwards diagonal
+		this.diagonalTally = [0, 0];
+
+		this.complete = false;
+	}
+
+	makeMove(index, player) {
+		this.columnTally[index % 3] += player;
+		this.rowTally[Math.floor(index / 3)] += player;
+
+		if (index % 2 == 0) {
+			this.diagonalTally[0] += player;
+		}
+
+		if (index == 2) {
+			this.diagonalTally[1] += player;
+		}
+
+		this.moveHistory.push(index);
+	}
+
+	score(t) {
+		Math.sign(t) * (Math.floor(10 ** (Math.abs(t) - 1)));
+	}
+
+	score() {
+		let score = 0;
+
+		for (let i = 0; i < 3; i++) {
+			let ct = this.columnTally[i];
+			let rt = this.rowTally[i];
+
+			score += score(ct);
+			score += score(rt);
+		}
+
+		score += score(this.diagonalTally[0]);
+		score += score(this.diagonalTally[1]);
+
+		return score;
+	}
+}
+
+// The brain for the AI. It takes in a Strategicboard type and converts it into information that it can use efficiently.
+class Brain {
+	constructor () {
+		this.currentboard = null;
+	}
+
+	
+}
+
 // Reference container
 let boardWrapper = document.getElementById("board-wrapper");
 
