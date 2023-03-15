@@ -185,13 +185,27 @@ div[class$="Options"] button {
 	background-color: rgb(253, 255, 159);
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 770px) {
 	.board-wrapper {
-		width: 50vw;
+		width: 80vw;
 	}
-}
-@media screen and (max-width: 400px) {
-	.board-wrapper {
-		width: 75vw;
+	div[class$="Options"] {
+		width: 46%;
+		margin: 1% 2%;
+		padding: 1%;
+		height: 100%;
+	}
+	.playerOneOptions {
+		order: 1;
+	}
+	.playerTwoOptions {
+		order: 1;
+	}
+	.restartWrapper {
+		order: 1;
+		margin: 0% 0% 1% 0%;
+	}
+	.restartWrapper button {
+		font-size: 2rem;
 	}
 }
