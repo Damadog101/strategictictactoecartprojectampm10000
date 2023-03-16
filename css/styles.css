@@ -3,11 +3,6 @@
 	padding: 0;
 	box-sizing: border-box;
 }
-body {
-	/* background: linear-gradient(to left, rgb(142, 253, 23), rgb(3, 146, 255)); */
-	/* background-color: rgb(192, 244, 249); */
-	background-color: #FCEADE;
-}
 
 .settings {
 	width: 100%;
@@ -64,11 +59,10 @@ main {
 }
 
 div[class$="Options"] {
-	width: 17%;
-	margin: 0% 9%;
+	width: 11%;
+	margin: 0% 12%;
 	padding: 1%;
 	border: 1px solid black;
-	background-color: rgb(141, 240, 163);
 
 	font-weight: bold;
 	font-size: large;
@@ -95,10 +89,16 @@ div[class$="Options"] > button {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	width: 100%;
+	
 }
 .restartWrapper button {
 	background-color: rgb(196, 196, 196);
-	font-size: 2rem;
+	font-size: 1.5rem;
+	margin: 2%;
+	padding: 0.8%;
+	border-radius: 12px;
+	cursor: pointer;
 }
 
 .board-wrapper {
@@ -116,6 +116,13 @@ div[class$="Options"] > button {
 
 .tile:hover {
 	background-color: rgb(128, 128, 128, 0.3);
+}
+
+.colorPlayerOne {
+	color:rgb(255, 77, 0);
+}
+.colorPlayerTwo {
+	color:rgb(104, 140, 207);
 }
 
 .tilePlayerTwo {
@@ -183,7 +190,6 @@ div[class$="Options"] > button {
 div[class$="Options"] button {
 	border: 1px solid black;
 	font-size: 1.5rem;
-	background-color: rgb(253, 255, 159);
 }
 
 @media screen and (max-width: 775px) {
