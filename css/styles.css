@@ -124,6 +124,15 @@ div[class$="Options"] > button {
 .colorPlayerTwo {
 	color:rgb(104, 140, 207);
 }
+/* .borderPlayerOne {
+	border: 2px solid rgb(255, 77, 0);
+
+}
+.borderPlayerTwo {
+	border: 2px solid rgb(104, 140, 207);
+
+} */
+
 
 .tilePlayerTwo {
 	background: linear-gradient(rgb(247, 74, 74), rgb(255, 77, 0));
@@ -171,7 +180,6 @@ div[class$="Options"] > button {
 	z-index: -1;
 
 	padding: 1.8% 0.5% 1% 0.5%;
-	background-color: rgb(141, 240, 163);
 	border: 1px solid black;
 	z-index: -1;
 	display: flex;
@@ -188,8 +196,9 @@ div[class$="Options"] > button {
 }
 
 div[class$="Options"] button {
-	border: 1px solid black;
 	font-size: 1.5rem;
+	border: 0px;
+	background-color: transparent;
 }
 
 @media screen and (max-width: 775px) {
