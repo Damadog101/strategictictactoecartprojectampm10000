@@ -1,13 +1,3 @@
-// let settings = document.getElementById("settingsIcon");
-// let settingsPopUp = document.getElementById("settingsPopUp");
-// settings.addEventListener("click", () => {
-// 	if (settingsPopUp.classList.contains("noDisplay")) {
-// 		settingsPopUp.classList.remove("noDisplay");
-// 	} else {
-// 		settingsPopUp.classList.add("noDisplay");
-// 	}
-// });
-
 function playerOneDropdown() {
   document.getElementById("playerOneDropdown").classList.toggle("noDisplay");
 }
@@ -47,8 +37,12 @@ restartButton.addEventListener("click", () => {
 
   board.player = 1;
   board.subboard = null;
+  board.winner = undefined;
+
   board.reset();
-  board.winner = 0;
+  console.log("board.winner: " + board.winner )
+
+
 });
 
 // Generates Subboards
@@ -138,6 +132,9 @@ class Board {
 
   resetIndex() {
     this.board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.isComplete = false
+    // console.log(this.board)
+    // console.log(this.isComplete)
   }
 
   // Makes a move if possible, throw error if cant make move
@@ -157,7 +154,7 @@ class Board {
 
     // Check Win
     let winner = this.checkWin();
-
+    console.log("winner: " + winner)
     //If winner, updates board info because of it
     if (winner != 0) {
       this.isComplete = true;
@@ -282,6 +279,8 @@ class StrategicBoard {
       }
     }
 
+
+    //removes inPlay class from old subboards after each turn
     for (let subB in this.subboards) {
       let curBoard = document.getElementById("0" + subB);
       curBoard.classList.remove("inPlay");
@@ -290,7 +289,7 @@ class StrategicBoard {
     // Make move and store move result
     let result = this.subboards[subboard].makeMove(index, this.player);
     this.player = -this.player;
-
+    console.log("result: " + result)
     //If a player won that board because of this, run this part
     if (result != 0) {
       console.log(result);
@@ -311,6 +310,7 @@ class StrategicBoard {
             alert(`The game was a Draw`);
             break;
         }
+        console.log("winner: " + winner);
         return winner;
       }
     }
@@ -318,6 +318,7 @@ class StrategicBoard {
     // Set the subboard to be index ONLY IF subboard is empty. Otherwise set it to null
     this.subboard = this.board["board"][index] == 0 ? index : null;
 
+<<<<<<< HEAD
 	new_ai.setState(board);
 
 	if (this.player == -1) {
@@ -325,6 +326,10 @@ class StrategicBoard {
 		this.makeMove(bestMove[1], bestMove[0]);
 	}
 
+=======
+
+    //gives the subboards the inPlay class when they the next board in play
+>>>>>>> 0f1413e1e5d18d992527337de6dae37b70c05ba8
     this.subboards.forEach((board, index) => {
       if (
         (this.subboard != null && index != this.subboard) ||
@@ -342,7 +347,6 @@ class StrategicBoard {
   reset() {
     this.subboards.forEach((subboard) => {
       subboard.board.resetIndex();
-      subboard.board.isComplete = false;
     });
   }
 }

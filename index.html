@@ -1,77 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Strategic Tic Tac Toe Cat Project AMPM 10,000</title>
-		<link rel="stylesheet" href="/css/styles.css" />
-		<script
-			src="https://kit.fontawesome.com/c0c26e9f21.js"
-			crossorigin="anonymous"
-		></script>
-		<script src="/script/index.js" defer></script>
-	</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Strategic Tic Tac Toe Cat Project AMPM 10,000</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script
+      src="https://kit.fontawesome.com/c0c26e9f21.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/script/index.js" defer></script>
+  </head>
 
-	<body>
-		<header>
-			<div id="settingsWrapper" class="settings">
-				<i
-					onclick="settingsDropDown()"
-					id="settingsIcon"
-					class="fa-solid fa-gear settingsIcon"
-				></i>
-				<div id="settingsPopUp" class="settingsPopUp noDisplay dropdownContent">
-					<p>Dark Mode</p>
-					<a href="https://www.youtube.com/@Cubeacabra/shorts">
-						<i class="fa-brands fa-youtube"></i>
-					</a>
-				</div>
-			</div>
-			<div class="titles">
-				<h1>Strategic Tic-Tac-Toe</h1>
-			</div>
-		</header>
-		<main>
-			<div class="playerOneOptions">
-				<h3>Player 1</h3>
-				<div class="playerOneDropdown">
-					<button onclick="playerOneDropdown()" id="player1" class="player1">
-						Human
-						<i class="fa-solid fa-caret-down"></i>
-					</button>
-					<div class="noDisplay dropdownContent" id="playerOneDropdown">
-						<button>Human</button>
-						<button>AI 1</button>
-						<button>AI 2</button>
-						<button>AI 3</button>
-					</div>
-				</div>
-			</div>
+  <body>
+    <header>
+      <div id="settingsWrapper" class="settings">
+        <i
+          onclick="settingsDropDown()"
+          id="settingsIcon"
+          class="fa-solid fa-gear settingsIcon"
+        ></i>
+        <div id="settingsPopUp" class="settingsPopUp noDisplay dropdownContent">
+          <a href="rules.html">Rules</a>
+          <a href="https://www.youtube.com/@Cubeacabra/shorts">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+      <div class="titles">
+        <h1>
+          Strategic <span class="colorPlayerOne">Tic</span>-<span
+            class="colorPlayerTwo"
+            >Tac</span
+          >-Toe
+        </h1>
+      </div>
+    </header>
+    <main>
+      <div class="playerOneOptions">
+        <h3 class="colorPlayerOne">Player 1</h3>
+        <div class="playerOneDropdown">
+          <button
+            onclick="playerOneDropdown()"
+            id="player1"
+            class="colorPlayerOne player1"
+          >
+            Human
+            <i class="fa-solid fa-caret-down"></i>
+          </button>
+          <div class="noDisplay dropdownContent" id="playerOneDropdown">
+            <button>Human</button>
+            <button>AI 1</button>
+            <button>AI 2</button>
+            <button>AI 3</button>
+          </div>
+        </div>
+      </div>
 
-			<div id="board-wrapper" class="board board-wrapper">
-				<!-- Generated with code -->
-			</div>
+      <div id="board-wrapper" class="board board-wrapper">
+        <!-- Generated with code -->
+      </div>
 
-			<div class="playerTwoOptions">
-				<h3>Player 2</h3>
-				<div class="playerOneDropdown">
-					<button onclick="playerTwoDropdown()" id="player2" class="player2">
-						Human
-						<i class="fa-solid fa-caret-down"></i>
-					</button>
-					<div class="noDisplay dropdownContent" id="playerTwoDropdown">
-						<button>Human</button>
-						<button>AI 1</button>
-						<button>AI 2</button>
-						<button>AI 3</button>
-					</div>
-				</div>
-			</div>
-			<div class="restartWrapper">
-				<button id="restart" class="restart">Restart Game</button>
-			</div>
-		</main>
-		<footer></footer>
-	</body>
+      <div class="playerTwoOptions">
+        <h3 class="colorPlayerTwo">Player 2</h3>
+        <div class="playerOneDropdown">
+          <button
+            onclick="playerTwoDropdown()"
+            id="player2"
+            class="colorPlayerTwo player2"
+          >
+            Human
+            <i class="fa-solid fa-caret-down"></i>
+          </button>
+          <div class="noDisplay dropdownContent" id="playerTwoDropdown">
+            <button>Human</button>
+            <button>AI 1</button>
+            <button>AI 2</button>
+            <button>AI 3</button>
+          </div>
+        </div>
+      </div>
+      <div class="restartWrapper">
+        <button id="restart" class="restart">Restart Game</button>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
 </html>
