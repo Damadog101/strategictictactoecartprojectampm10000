@@ -186,21 +186,97 @@ div[class$="Options"] button {
 	background-color: rgb(253, 255, 159);
 }
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 775px) {
 	.board-wrapper {
 		width: 80vw;
 	}
-	div[class$="Options"] {
-		width: 46%;
-		margin: 1% 2%;
+	div.playerOneOptions {
+		order: 1;
+	}
+	div.playerTwoOptions {
+		order: 1;
+	}
+	.restartWrapper {
+		order: 1;
+		margin: 0% 0% 1% 0%;
+	}
+	div.playerOneOptions {
+		order: 1;
+		width: 30%;
 		padding: 1%;
 		height: 100%;
+
+		margin: 1% 4% 1% 4%;
+
 	}
-	.playerOneOptions {
+	div.playerTwoOptions {
+		order: 1;
+		width: 30%;
+		padding: 1%;
+		height: 100%;
+
+		margin: 1% 4% 1% 4%;
+
+	}
+}
+
+@media screen and (max-width: 722px) {
+	.board-wrapper {
+		width: 80vw;
+	}
+	div.playerOneOptions {
 		order: 1;
 	}
-	.playerTwoOptions {
+	div.playerTwoOptions {
 		order: 1;
+	}
+	.restartWrapper {
+		order: 1;
+		margin: 0% 0% 1% 0%;
+	}
+	div.playerOneOptions {
+		order: 1;
+		width: 30%;
+		padding: 1%;
+		height: 100%;
+
+		margin: 1% 3% 1% 3%;
+
+	}
+	div.playerTwoOptions {
+		order: 1;
+		width: 30%;
+		padding: 1%;
+		height: 100%;
+
+		margin: 1% 3% 1% 3%;
+
+	}
+}
+
+
+@media screen and (max-width: 632px) {
+	.board-wrapper {
+		width: 80vw;
+	}
+
+	div.playerOneOptions {
+		order: 1;
+		width: 30%;
+		padding: 1%;
+		height: 100%;
+
+		margin: 1% 2% 1% 2%;
+
+	}
+	div.playerTwoOptions {
+		order: 1;
+		width: 30%;
+		padding: 1%;
+		height: 100%;
+
+		margin: 1% 2% 1% 2%;
+
 	}
 	.restartWrapper {
 		order: 1;
