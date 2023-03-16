@@ -317,19 +317,15 @@ class StrategicBoard {
 
     // Set the subboard to be index ONLY IF subboard is empty. Otherwise set it to null
     this.subboard = this.board["board"][index] == 0 ? index : null;
+    
+	  new_ai.setState(board);
 
-<<<<<<< HEAD
-	new_ai.setState(board);
+	  if (this.player == -1) {
+  		let bestMove = new_ai.getBestMove();
+  		this.makeMove(bestMove[1], bestMove[0]);
+  	}
 
-	if (this.player == -1) {
-		let bestMove = new_ai.getBestMove();
-		this.makeMove(bestMove[1], bestMove[0]);
-	}
-
-=======
-
-    //gives the subboards the inPlay class when they the next board in play
->>>>>>> 0f1413e1e5d18d992527337de6dae37b70c05ba8
+    //gives the sub-boards the inPlay class when they the next 
     this.subboards.forEach((board, index) => {
       if (
         (this.subboard != null && index != this.subboard) ||
@@ -456,7 +452,7 @@ class Brain {
     this.currentboard = null;
     this.player = 1;
 
-	this.moveHistory = [];
+	  this.moveHistory = [];
 
     this.subboards = new Array(9).fill(null).map((_) => new AIBoard());
     this.board = new AIBoard();
@@ -486,7 +482,6 @@ class Brain {
     boardToPlay.evaluate();
 	if (boardToPlay.complete) {
 		this.board.makeMove(subboard, this.player);
-		console.log(this.board);
 	}
 	this.player = -this.player;
 
