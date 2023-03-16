@@ -5,7 +5,8 @@
 }
 body {
 	/* background: linear-gradient(to left, rgb(142, 253, 23), rgb(3, 146, 255)); */
-	background-color: rgb(192, 244, 249);
+	/* background-color: rgb(192, 244, 249); */
+	background-color: #FCEADE;
 }
 
 .settings {
