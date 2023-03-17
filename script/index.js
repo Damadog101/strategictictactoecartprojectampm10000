@@ -389,7 +389,7 @@ class AIBoard {
   }
 
   score(t) {
-    if (t == 0 || t == 2) {
+    if (t == 0) {
       return 0;
     }
 
@@ -526,12 +526,11 @@ class Brain {
     // Otherwise return the sum of the evaluation of all of the boards;
     let score = 0;
 
-    this.subboards.forEach((board) => {
-      console.log(board);
-      score += board.evaluate();
+    this.subboards.forEach((subboard) => {
+      score += subboard.evaluate();
     });
 
-    score += this.board.evaluate() * 10;
+    score += this.board.evaluation * 10;
 
     return score;
   }
@@ -587,26 +586,21 @@ class Brain {
   getBestMove() {
     let moves = this.getLegalMoves();
     let bestMoveIndex = 0;
-    let bestMoveValue = this.player == 1 ? -Infinity : Infinity;
-    console.log(this);
+    let bestMoveValue = -Infinity;
+
+    console.log(this.subboards);
+    console.log(this.evaluate());
+
     for (let i = 0; i < moves.length; i++) {
-      let moveValue = this.minimax(moves[i], 5, this.player);
+      let moveValue = this.minimax(moves[i], 7, this.player) * -this.player;
       this.undo();
 
-      if (this.player == 1) {
-        if (moveValue > bestMoveValue) {
-          bestMoveValue = moveValue;
-          bestMoveIndex = i;
-        }
-      } else {
-        if (moveValue < bestMoveValue) {
-          bestMoveValue = moveValue;
-          bestMoveIndex = i;
-        }
+      if (moveValue > bestMoveValue) {
+        bestMoveValue = moveValue;
+        bestMoveIndex = i;
       }
     }
 
-    console.log(bestMoveIndex, bestMoveValue);
     return moves[bestMoveIndex];
   }
 }
