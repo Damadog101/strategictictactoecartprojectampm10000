@@ -40,9 +40,6 @@ restartButton.addEventListener("click", () => {
   board.winner = undefined;
 
   board.reset();
-  console.log("board.winner: " + board.winner )
-
-
 });
 
 // Generates Subboards
@@ -132,7 +129,7 @@ class Board {
 
   resetIndex() {
     this.board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-    this.isComplete = false
+    this.isComplete = false;
     // console.log(this.board)
     // console.log(this.isComplete)
   }
@@ -154,7 +151,6 @@ class Board {
 
     // Check Win
     let winner = this.checkWin();
-    console.log("winner: " + winner)
     //If winner, updates board info because of it
     if (winner != 0) {
       this.isComplete = true;
@@ -171,17 +167,11 @@ class Board {
 
     // Forward Diagonal Win
     if (board[0] != 0 && board[0] == board[4] && board[0] == board[8]) {
-      console.log(
-        `FW Diagonal Wins Check: ${board[0]}, ${board[4]}, ${board[8]} `
-      );
       return board[0];
     }
 
     // Backwards Diagonal Win
     if (board[2] != 0 && board[2] == board[4] && board[2] == board[6]) {
-      console.log(
-        `BW Diagonal Wins Check: ${board[2]}, ${board[4]}, ${board[6]} `
-      );
       return board[2];
     }
 
@@ -194,9 +184,6 @@ class Board {
         board[col] == board[col + 1] &&
         board[col] == board[col + 2]
       ) {
-        console.log(
-          `Horizontal: ${board[col]}, ${board[col + 1]}, ${board[col + 2]} `
-        );
         return board[col];
       }
 
@@ -206,9 +193,6 @@ class Board {
         board[i] == board[i + 3] &&
         board[i] == board[i + 6]
       ) {
-        console.log(
-          `Verticle Wins Check: ${board[i]}, ${board[i + 3]}, ${board[i + 6]} `
-        );
         return board[i];
       }
     }
@@ -279,7 +263,6 @@ class StrategicBoard {
       }
     }
 
-
     //removes inPlay class from old subboards after each turn
     for (let subB in this.subboards) {
       let curBoard = document.getElementById("0" + subB);
@@ -289,10 +272,8 @@ class StrategicBoard {
     // Make move and store move result
     let result = this.subboards[subboard].makeMove(index, this.player);
     this.player = -this.player;
-    console.log("result: " + result)
     //If a player won that board because of this, run this part
     if (result != 0) {
-      console.log(result);
       // track move on larger board
       let winner = this.board.makeMove(subboard, -this.player);
 
@@ -310,22 +291,21 @@ class StrategicBoard {
             alert(`The game was a Draw`);
             break;
         }
-        console.log("winner: " + winner);
         return winner;
       }
     }
 
     // Set the subboard to be index ONLY IF subboard is empty. Otherwise set it to null
     this.subboard = this.board["board"][index] == 0 ? index : null;
-    
-	  new_ai.setState(board);
 
-	  if (this.player == -1) {
-  		let bestMove = new_ai.getBestMove();
-  		this.makeMove(bestMove[1], bestMove[0]);
-  	}
+    new_ai.setState(board);
 
-    //gives the sub-boards the inPlay class when they the next 
+    if (this.player == -1) {
+      let bestMove = new_ai.getBestMove();
+      this.makeMove(bestMove[1], bestMove[0]);
+    }
+
+    //gives the sub-boards the inPlay class when they the next
     this.subboards.forEach((board, index) => {
       if (
         (this.subboard != null && index != this.subboard) ||
@@ -409,7 +389,11 @@ class AIBoard {
   }
 
   score(t) {
-    return t == 2 ? 0 : Math.floor(10 ** (Math.abs(t) - 1)) * (t < 0 ? -1 : 1);
+    if (t == 0 || t == 2) {
+      return 0;
+    }
+
+    return 10 ** (Math.abs(t) - 1) * t;
   }
 
   evaluate() {
@@ -442,7 +426,7 @@ class AIBoard {
         this.makeMove(i, tile);
       }
     });
-	this.evaluate();
+    this.evaluate();
   }
 }
 
@@ -452,14 +436,15 @@ class Brain {
     this.currentboard = null;
     this.player = 1;
 
-	  this.moveHistory = [];
+    this.moveHistory = [];
 
     this.subboards = new Array(9).fill(null).map((_) => new AIBoard());
     this.board = new AIBoard();
   }
 
   setState(strategicboard) {
-	this.subboards = new Array(9).fill(null).map((_) => new AIBoard());
+    this.subboards = new Array(9).fill(null).map((_) => new AIBoard());
+    this.board = new AIBoard();
 
     strategicboard.subboards.forEach((subboard, i) => {
       this.subboards[i].copy(subboard.board.board);
@@ -467,7 +452,7 @@ class Brain {
 
     this.board.copy(strategicboard.board.board);
     this.player = strategicboard.player;
-	this.currentboard = strategicboard.subboard;
+    this.currentboard = strategicboard.subboard;
     this.evaluate();
   }
 
@@ -480,13 +465,13 @@ class Brain {
 
     boardToPlay.makeMove(index, this.player);
     boardToPlay.evaluate();
-	if (boardToPlay.complete) {
-		this.board.makeMove(subboard, this.player);
-	}
-	this.player = -this.player;
+    if (boardToPlay.complete) {
+      this.board.makeMove(subboard, this.player);
+    }
+    this.player = -this.player;
 
-	// Store where they played, and if that board was completed
-	this.moveHistory.push([subboard, boardToPlay.complete ? true : false]);
+    // Store where they played, and if that board was completed
+    this.moveHistory.push([subboard, boardToPlay.complete ? true : false]);
 
     if (this.subboards[index].complete) {
       this.currentboard = null;
@@ -496,113 +481,133 @@ class Brain {
   }
 
   undo() {
-	let lastMove = this.moveHistory.pop();
+    let lastMove = this.moveHistory.pop();
 
-	this.subboards[lastMove[0]].undo();
+    this.subboards[lastMove[0]].undo();
+    this.player = -this.player;
 
-	if (lastMove[1]) {
-		this.board.undo();
-	}
+    if (lastMove[1]) {
+      this.board.undo();
+    }
   }
 
   getLegalMoves() {
-	// If the game is over, then there are no moves to be made
-	if (this.board.complete) {
-		return [];
-	}
+    // If the game is over, then there are no moves to be made
+    if (this.board.complete) {
+      return [];
+    }
 
-	let moves = [];
-	let boardsToCheck = this.currentboard != null ? [this.currentboard] : this.board.legalMoves;
+    let moves = [];
+    let boardsToCheck =
+      this.currentboard != null ? [this.currentboard] : this.board.legalMoves;
 
-	// For every board that can be played on, 
-	for (let i = 0; i < boardsToCheck.length; i++) {
-		// The subboard which moves are currently being retrieved
-		let movesSubboard = boardsToCheck[i];
-		let submoves = this.subboards[movesSubboard].legalMoves;
+    // For every board that can be played on,
+    for (let i = 0; i < boardsToCheck.length; i++) {
+      // The subboard which moves are currently being retrieved
+      let movesSubboard = boardsToCheck[i];
+      let submoves = this.subboards[movesSubboard].legalMoves;
 
-		for (let j = 0; j < submoves.length; j++) {
-			moves.push([submoves[j], movesSubboard]);
-		}
-	}
+      for (let j = 0; j < submoves.length; j++) {
+        moves.push([submoves[j], movesSubboard]);
+      }
+    }
 
-	return moves;
+    return moves;
   }
 
   evaluate() {
-	// If somebody won the game, return a ridiculous number
-	if (this.board.complete) {
-		return this.board.evaluation > 0 ? 1000000 : -1000000;
-	}
+    // If somebody won the game, return a ridiculous number
+    this.board.evaluate();
 
-	// Otherwise return the sum of the evaluation of all of the boards;
-	let score = 0;
+    if (this.board.complete) {
+      return this.board.evaluation > 0 ? 1000000 : -1000000;
+    }
 
-	this.subboards.forEach(board => {
-		score += board.evaluation;
-	})
+    // Otherwise return the sum of the evaluation of all of the boards;
+    let score = 0;
 
-	score += this.board.evaluation * 10;
+    this.subboards.forEach((board) => {
+      console.log(board);
+      score += board.evaluate();
+    });
 
-	return score;
+    score += this.board.evaluate() * 10;
+
+    return score;
   }
 
-	// Move is the move that should be made on the turn
-	// Depth is how many moves deep the AI will search
+  // Move is the move that should be made on the turn
+  // Depth is how many moves deep the AI will search
   minimax(move, depth, player, alpha = -Infinity, beta = Infinity) {
-	this.makeMove(move[0], move[1]);
+    this.makeMove(move[0], move[1]);
 
-	if (depth == 0 || this.board.complete) {
-		return this.evaluate();
-	}
+    if (depth == 0 || this.board.complete) {
+      return this.evaluate();
+    }
 
-	if (player == 1) {
-		let value = -Infinity;
-		let moves = this.getLegalMoves();
+    if (player == 1) {
+      let value = -Infinity;
+      let moves = this.getLegalMoves();
 
-		for (let i = 0; i < moves.length; i++) {
-			value = Math.max(value, this.minimax(moves[i], depth - 1, player * -1, alpha, beta))
-			alpha = Math.max(value, alpha);
-			this.undo();
+      for (let i = 0; i < moves.length; i++) {
+        value = Math.max(
+          value,
+          this.minimax(moves[i], depth - 1, -player, alpha, beta)
+        );
+        alpha = Math.max(value, alpha);
+        this.undo();
 
-			if (beta <= alpha) {
-				break
-			}
-		}
+        if (beta <= alpha) {
+          break;
+        }
+      }
 
-		return value;
-	} else {
-		let value = Infinity;
-		let moves = this.getLegalMoves();
+      return value;
+    } else {
+      let value = Infinity;
+      let moves = this.getLegalMoves();
 
-		for (let i = 0; i < moves.length; i++) {
-			value = Math.min(value, this.minimax(moves[i], depth - 1, player * -1, alpha, beta));
-			beta = Math.min(value, beta);
-			this.undo();
+      for (let i = 0; i < moves.length; i++) {
+        value = Math.min(
+          value,
+          this.minimax(moves[i], depth - 1, -player, alpha, beta)
+        );
+        beta = Math.min(value, beta);
+        this.undo();
 
-			if (beta <= alpha) {
-				break
-			}
-		}
+        if (beta <= alpha) {
+          break;
+        }
+      }
 
-		return value;
-	}
+      return value;
+    }
   }
 
   getBestMove() {
-	let moves = this.getLegalMoves();
-	let bestMoveIndex = 0;
-	let bestMoveValue = 0;
+    let moves = this.getLegalMoves();
+    let bestMoveIndex = 0;
+    let bestMoveValue = this.player == 1 ? -Infinity : Infinity;
+    console.log(this);
+    for (let i = 0; i < moves.length; i++) {
+      let moveValue = this.minimax(moves[i], 5, this.player);
+      this.undo();
 
-	for (let i = 0; i < moves.length; i++) {
-		let moveValue = this.minimax(moves[i], 5, this.player);
-		
-		if (moveValue > bestMoveValue) {
-			bestMoveValue = moveValue;
-			bestMoveIndex = i;
-		}
-	}
-	
-	return moves[bestMoveIndex];
+      if (this.player == 1) {
+        if (moveValue > bestMoveValue) {
+          bestMoveValue = moveValue;
+          bestMoveIndex = i;
+        }
+      } else {
+        if (moveValue < bestMoveValue) {
+          bestMoveValue = moveValue;
+          bestMoveIndex = i;
+        }
+      }
+    }
+
+    console.log(bestMoveIndex, bestMoveValue);
+    return moves[bestMoveIndex];
   }
 }
 
