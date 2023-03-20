@@ -1,12 +1,27 @@
-function playerOneDropdown() {
-  document.getElementById("playerOneDropdown").classList.toggle("noDisplay");
-}
-function playerTwoDropdown() {
-  document.getElementById("playerTwoDropdown").classList.toggle("noDisplay");
-}
+import { solve, strategicBoardToPosition } from "./AI/solver.js";
+
+let p1 = "Human";
+let p2 = "Human";
+
 function settingsDropDown() {
   document.getElementById("settingsPopUp").classList.toggle("noDisplay");
 }
+
+const player1Button = document.getElementById("player1");
+const player2Button = document.getElementById("player2");
+
+function playerOneDropdown() {
+  p1 = p1 == "Human" ? "AI" : "Human";
+  player1Button.innerHTML = p1 + '<i class="fa-solid fa-caret-down"></i>';
+}
+
+function playerTwoDropdown() {
+  p2 = p2 == "Human" ? "AI" : "Human";
+  player2Button.innerHTML = p2 + '<i class="fa-solid fa-caret-down"></i>';
+}
+
+player1Button.addEventListener("click", playerOneDropdown);
+player2Button.addEventListener("click", playerTwoDropdown);
 
 window.onclick = function (event) {
   if (!event.target.matches(".dropbtn")) {
@@ -252,7 +267,7 @@ class StrategicBoard {
     this.subboard = null;
   }
 
-  makeMove(subboard, index) {
+  async makeMove(subboard, index) {
     // Removes the inPlay class from all subBoards
 
     // Throws error if you play on the wrong board
@@ -298,13 +313,6 @@ class StrategicBoard {
     // Set the subboard to be index ONLY IF subboard is empty. Otherwise set it to null
     this.subboard = this.board["board"][index] == 0 ? index : null;
 
-    new_ai.setState(board);
-
-    if (this.player == -1) {
-      let bestMove = new_ai.getBestMove();
-      this.makeMove(bestMove[1], bestMove[0]);
-    }
-
     //gives the sub-boards the inPlay class when they the next
     this.subboards.forEach((board, index) => {
       if (
@@ -317,6 +325,14 @@ class StrategicBoard {
       board.display.classList.add("inPlay");
     });
 
+    if (p1 == "AI" && this.player == 1 || p2 == "AI" && this.player == -1 && !this.board.isComplete) {
+      await new Promise(r => setTimeout(r, 10));
+
+      let P = strategicBoardToPosition(this);
+      let move = solve(P, 7);
+      this.makeMove(move[0], move[1]);
+    }
+
     return 0;
   }
 
@@ -324,284 +340,9 @@ class StrategicBoard {
     this.subboards.forEach((subboard) => {
       subboard.board.resetIndex();
     });
-  }
-}
-
-// Minimax AI Implementation
-
-class AIBoard {
-  constructor() {
-    this.evaluation = 0;
-
-    this.moveHistory = [];
-    this.legalMoves = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-
-    // Used for scoring boards
-    this.columnTally = [0, 0, 0];
-    this.rowTally = [0, 0, 0];
-    // [0] = forward diagonal, [1] = backwards diagonal
-    this.diagonalTally = [0, 0];
-
-    this.complete = false;
-  }
-
-  makeMove(index, player) {
-    let column = index % 3;
-    let row = Math.floor(index / 3);
-
-    this.columnTally[column] += player;
-    this.rowTally[row] += player;
-
-    if ((column + row) % 2 == 0) {
-      this.diagonalTally[0] += player;
-    }
-
-    if (column + row == 2) {
-      this.diagonalTally[1] += player;
-    }
-
-    this.moveHistory.push([index, player]);
-    this.legalMoves.splice(this.legalMoves.indexOf(index), 1);
-  }
-
-  undo() {
-    this.complete = false;
-
-    let move = this.moveHistory.pop();
-    let index = move[0];
-    let player = move[1];
-
-    let column = index % 3;
-    let row = Math.floor(index / 3);
-
-    this.columnTally[column] -= player;
-    this.rowTally[Math.floor(row)] -= player;
-
-    if ((column + row) % 2 == 0) {
-      this.diagonalTally[0] -= player;
-    }
-
-    if (column + row == 2) {
-      this.diagonalTally[1] -= player;
-    }
-
-    this.legalMoves.push(index);
-  }
-
-  score(t) {
-    if (t == 0) {
-      return 0;
-    }
-
-    return 10 ** (Math.abs(t) - 1) * t;
-  }
-
-  evaluate() {
-    let score = 0;
-
-    for (let i = 0; i < 3; i++) {
-      let ct = this.columnTally[i];
-      let rt = this.rowTally[i];
-
-      score += this.score(ct);
-      score += this.score(rt);
-    }
-
-    score += this.score(this.diagonalTally[0]);
-    score += this.score(this.diagonalTally[1]);
-
-    this.evaluation = score;
-
-    if (score >= 100 || score <= -100) {
-      this.complete = true;
-    }
-
-    return score;
-  }
-
-  // Copies a Board types information into the AI board type.
-  copy(board) {
-    board.forEach((tile, i) => {
-      if (tile != 0) {
-        this.makeMove(i, tile);
-      }
-    });
-    this.evaluate();
-  }
-}
-
-// The brain for the AI. It takes in a Strategicboard type and converts it into information that it can use efficiently.
-class Brain {
-  constructor() {
-    this.currentboard = null;
+    this.board = new Board();
     this.player = 1;
-
-    this.moveHistory = [];
-
-    this.subboards = new Array(9).fill(null).map((_) => new AIBoard());
-    this.board = new AIBoard();
-  }
-
-  setState(strategicboard) {
-    this.subboards = new Array(9).fill(null).map((_) => new AIBoard());
-    this.board = new AIBoard();
-
-    strategicboard.subboards.forEach((subboard, i) => {
-      this.subboards[i].copy(subboard.board.board);
-    });
-
-    this.board.copy(strategicboard.board.board);
-    this.player = strategicboard.player;
-    this.currentboard = strategicboard.subboard;
-    this.evaluate();
-  }
-
-  makeMove(index, subboard) {
-    if (this.currentboard) {
-      subboard = this.currentboard;
-    }
-
-    let boardToPlay = this.subboards[subboard];
-
-    boardToPlay.makeMove(index, this.player);
-    boardToPlay.evaluate();
-    if (boardToPlay.complete) {
-      this.board.makeMove(subboard, this.player);
-    }
-    this.player = -this.player;
-
-    // Store where they played, and if that board was completed
-    this.moveHistory.push([subboard, boardToPlay.complete ? true : false]);
-
-    if (this.subboards[index].complete) {
-      this.currentboard = null;
-    } else {
-      this.currentboard = index;
-    }
-  }
-
-  undo() {
-    let lastMove = this.moveHistory.pop();
-
-    this.subboards[lastMove[0]].undo();
-    this.player = -this.player;
-
-    if (lastMove[1]) {
-      this.board.undo();
-    }
-  }
-
-  getLegalMoves() {
-    // If the game is over, then there are no moves to be made
-    if (this.board.complete) {
-      return [];
-    }
-
-    let moves = [];
-    let boardsToCheck =
-      this.currentboard != null ? [this.currentboard] : this.board.legalMoves;
-
-    // For every board that can be played on,
-    for (let i = 0; i < boardsToCheck.length; i++) {
-      // The subboard which moves are currently being retrieved
-      let movesSubboard = boardsToCheck[i];
-      let submoves = this.subboards[movesSubboard].legalMoves;
-
-      for (let j = 0; j < submoves.length; j++) {
-        moves.push([submoves[j], movesSubboard]);
-      }
-    }
-
-    return moves;
-  }
-
-  evaluate() {
-    // If somebody won the game, return a ridiculous number
-    this.board.evaluate();
-
-    if (this.board.complete) {
-      return this.board.evaluation > 0 ? 1000000 : -1000000;
-    }
-
-    // Otherwise return the sum of the evaluation of all of the boards;
-    let score = 0;
-
-    this.subboards.forEach((subboard) => {
-      score += subboard.evaluate();
-    });
-
-    score += this.board.evaluation * 10;
-
-    return score;
-  }
-
-  // Move is the move that should be made on the turn
-  // Depth is how many moves deep the AI will search
-  minimax(move, depth, player, alpha = -Infinity, beta = Infinity) {
-    this.makeMove(move[0], move[1]);
-
-    if (depth == 0 || this.board.complete) {
-      return this.evaluate();
-    }
-
-    if (player == 1) {
-      let value = -Infinity;
-      let moves = this.getLegalMoves();
-
-      for (let i = 0; i < moves.length; i++) {
-        value = Math.max(
-          value,
-          this.minimax(moves[i], depth - 1, -player, alpha, beta)
-        );
-        alpha = Math.max(value, alpha);
-        this.undo();
-
-        if (beta <= alpha) {
-          break;
-        }
-      }
-
-      return value;
-    } else {
-      let value = Infinity;
-      let moves = this.getLegalMoves();
-
-      for (let i = 0; i < moves.length; i++) {
-        value = Math.min(
-          value,
-          this.minimax(moves[i], depth - 1, -player, alpha, beta)
-        );
-        beta = Math.min(value, beta);
-        this.undo();
-
-        if (beta <= alpha) {
-          break;
-        }
-      }
-
-      return value;
-    }
-  }
-
-  getBestMove() {
-    let moves = this.getLegalMoves();
-    let bestMoveIndex = 0;
-    let bestMoveValue = -Infinity;
-
-    console.log(this.subboards);
-    console.log(this.evaluate());
-
-    for (let i = 0; i < moves.length; i++) {
-      let moveValue = this.minimax(moves[i], 7, this.player) * -this.player;
-      this.undo();
-
-      if (moveValue > bestMoveValue) {
-        bestMoveValue = moveValue;
-        bestMoveIndex = i;
-      }
-    }
-
-    return moves[bestMoveIndex];
+    this.subboard = null;
   }
 }
 
@@ -610,8 +351,6 @@ let boardWrapper = document.getElementById("board-wrapper");
 
 // Make new strategic board contained by container
 let board = new StrategicBoard(boardWrapper);
-
-let new_ai = new Brain();
 
 // let subBoardsArr = document.querySelectorAll(".subboard")
 let tilesArr = document.querySelectorAll(".tile");
