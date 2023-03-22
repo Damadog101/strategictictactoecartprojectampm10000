@@ -33,7 +33,7 @@ function minimax(P, depth, alpha = -Infinity, beta = Infinity) {
     return 1_000_000 * sign;
   }
 
-  if (board.legalBoards == 0) {
+  if (P.legalBoards == 0) {
     return 0;
   }
 
