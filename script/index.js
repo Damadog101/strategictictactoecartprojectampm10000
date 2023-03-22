@@ -294,17 +294,36 @@ class StrategicBoard {
     let p1Turn = document.getElementById("playerOneTurn")
     let p2Turn = document.getElementById("playerTwoTurn")
 
+    let playersBox = document.getElementById("playersBox")
+
 
     p1Turn.classList.remove("rotate")
     p2Turn.classList.remove("rotate")
 
     if (this.player == 1) {
       p1Turn.classList.add("rotate");
+      playersBox.classList.remove("colorPlayerTwo")
+      playersBox.classList.add("colorPlayerOne")
+
+      if(p1 == "AI") {
+        playersBox.innerHTML = "AI is thinking..."
+      } else {
+        playersBox.innerHTML = "Player 1 to Play..."
+      }
+
     } else if (this.player == -1) {
       p2Turn.classList.add("rotate");
+      playersBox.classList.remove("colorPlayerOne")
+      playersBox.classList.add("colorPlayerTwo")
+      if(p2 == "AI") {
+        playersBox.innerHTML = "AI is thinking..."
+      } else {
+        playersBox.innerHTML = "Player 2 to Play..."
+      }
     } else {
       p1Turn.classList.remove("rotate")
       p2Turn.classList.remove("rotate")
+      playersBox.classList.remove("colorPlayerOne", "colorPlayerTwo")
     }
 
 
@@ -317,22 +336,27 @@ class StrategicBoard {
       //if player won game do this
       if (winner) {
         //alert it
-        let winBox = document.getElementById("winBox")
 
         switch (winner) {
           case 1:
-            winBox.innerHTML = `Player 1 won the game!`;
-            winBox.classList.add("colorPlayerOne")
+            playersBox.classList.add("colorPlayerOne")
+            playersBox.classList.remove("colorPlayerTwo")
+
+            playersBox.innerHTML = `Player 1 won the game!`;
 
             break;
           case -1:
-            winBox.innerHTML = `Player 2 won the game!`;
-            winBox.classList.add("colorPlayerTwo")
+            playersBox.classList.add("colorPlayerTwo")
+            playersBox.classList.remove("colorPlayerOne")
+
+            playersBox.innerHTML = `Player 2 won the game!`;
 
             break;
           case 2:
-            winBox.innerHTML = `The game was a draw!`;
-            winBox.classList.add("colorDraw")
+            playersBox.classList.add("colorDraw")
+            playersBox.classList.remove("colorPlayerOne", "colorPlayerTwo")
+
+            playersBox.innerHTML = `The game was a draw!`;
 
             break;
         }
