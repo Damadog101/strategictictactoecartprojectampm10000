@@ -339,18 +339,24 @@ class StrategicBoard {
 
         switch (winner) {
           case 1:
-            playersBox.innerHTML = `Player 1 won the game!`;
             playersBox.classList.add("colorPlayerOne")
+            playersBox.classList.remove("colorPlayerTwo")
+
+            playersBox.innerHTML = `Player 1 won the game!`;
 
             break;
           case -1:
-            playersBox.innerHTML = `Player 2 won the game!`;
             playersBox.classList.add("colorPlayerTwo")
+            playersBox.classList.remove("colorPlayerOne")
+
+            playersBox.innerHTML = `Player 2 won the game!`;
 
             break;
           case 2:
-            playersBox.innerHTML = `The game was a draw!`;
             playersBox.classList.add("colorDraw")
+            playersBox.classList.remove("colorPlayerOne", "colorPlayerTwo")
+
+            playersBox.innerHTML = `The game was a draw!`;
 
             break;
         }
