@@ -287,6 +287,28 @@ class StrategicBoard {
     // Make move and store move result
     let result = this.subboards[subboard].makeMove(index, this.player);
     this.player = -this.player;
+
+
+
+    //Make the rotating tile to display whos turn it is
+    let p1Turn = document.getElementById("playerOneTurn")
+    let p2Turn = document.getElementById("playerTwoTurn")
+
+
+    p1Turn.classList.remove("rotate")
+    p2Turn.classList.remove("rotate")
+
+    if (this.player == 1) {
+      p1Turn.classList.add("rotate");
+    } else if (this.player == -1) {
+      p2Turn.classList.add("rotate");
+    } else {
+      p1Turn.classList.remove("rotate")
+      p2Turn.classList.remove("rotate")
+    }
+
+
+
     //If a player won that board because of this, run this part
     if (result != 0) {
       // track move on larger board
@@ -295,15 +317,23 @@ class StrategicBoard {
       //if player won game do this
       if (winner) {
         //alert it
+        let winBox = document.getElementById("winBox")
+
         switch (winner) {
           case 1:
-            alert(`Player 1 won the game`);
+            winBox.innerHTML = `Player 1 won the game!`;
+            winBox.classList.add("colorPlayerOne")
+
             break;
           case -1:
-            alert(`Player 2 won the game`);
+            winBox.innerHTML = `Player 2 won the game!`;
+            winBox.classList.add("colorPlayerTwo")
+
             break;
           case 2:
-            alert(`The game was a Draw`);
+            winBox.innerHTML = `The game was a draw!`;
+            winBox.classList.add("colorDraw")
+
             break;
         }
         return winner;
