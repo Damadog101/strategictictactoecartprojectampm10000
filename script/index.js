@@ -3,13 +3,14 @@ import { solve, strategicBoardToPosition } from "./AI/solver.js";
 let p1 = "Human";
 let p2 = "Human";
 
-function settingsDropDown() {
-  document.getElementById("settingsPopUp").classList.toggle("noDisplay");
-}
+// function settingsDropDown() {
+//   let popUp = document.getElementById("settingsPopUp");
+//   popUp.classList.toggle("noDisplay")
+// }
 
 const player1Button = document.getElementById("player1");
 const player2Button = document.getElementById("player2");
-
+// const settingsButton = document.getElementById("settingsIcon")
 function playerOneDropdown() {
   p1 = p1 == "Human" ? "AI" : "Human";
   player1Button.innerHTML = p1 + '<i class="fa-solid fa-caret-down"></i>';
@@ -22,19 +23,9 @@ function playerTwoDropdown() {
 
 player1Button.addEventListener("click", playerOneDropdown);
 player2Button.addEventListener("click", playerTwoDropdown);
+// settingsButton.addEventListener("click", settingsDropDown())
 
-window.onclick = function (event) {
-  if (!event.target.matches(".dropbtn")) {
-    let dropdowns = document.getElementsByClassName("dropdown-content");
-    let i;
-    for (i = 0; i < dropdowns.length; i++) {
-      let openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains("noDisplay")) {
-        openDropdown.classList.remove("noDisplay");
-      }
-    }
-  }
-};
+
 
 let restartButton = document.getElementById("restart");
 
