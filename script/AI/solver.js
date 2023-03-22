@@ -29,13 +29,11 @@ function minimax(P, depth, alpha = -Infinity, beta = Infinity) {
   let player = P.player;
 
   if (board.checkWin(board.boards[player])) {
-    console.log("terminal position evaluated");
     let sign = player == 1 ? -1 : 1;
     return 1_000_000 * sign;
   }
 
   if (board.legalBoards == 0) {
-    console.log("drawn position evaluated");
     return 0;
   }
 

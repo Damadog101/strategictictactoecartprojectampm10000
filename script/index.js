@@ -60,7 +60,7 @@ restartButton.addEventListener("click", () => {
 // Generates Subboards
 function newSubboard(i) {
   let newSubboard = document.createElement("div");
-  newSubboard.classList.add("board", "subboard");
+  newSubboard.classList.add("board", "subboard", "inPlay");
   newSubboard.id = "0" + i;
   for (let j = 0; j < 9; j++) {
     let newTile = document.createElement("div");
@@ -326,10 +326,10 @@ class StrategicBoard {
     });
 
     if (p1 == "AI" && this.player == 1 || p2 == "AI" && this.player == -1 && !this.board.isComplete) {
-      await new Promise(r => setTimeout(r, 10));
+      await new Promise(r => setTimeout(r, 100));
 
       let P = strategicBoardToPosition(this);
-      let move = solve(P, 7);
+      let move = await solve(P, 7);
       this.makeMove(move[0], move[1]);
     }
 
@@ -339,6 +339,7 @@ class StrategicBoard {
   reset() {
     this.subboards.forEach((subboard) => {
       subboard.board.resetIndex();
+      subboard.display.classList.add("inPlay");
     });
     this.board = new Board();
     this.player = 1;
