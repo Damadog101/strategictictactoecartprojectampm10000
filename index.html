@@ -35,6 +35,7 @@
             >Tac</span
           >-Toe
         </h1>
+        <div id="winBox"></div>
       </div>
     </header>
     <main>
@@ -45,10 +46,7 @@
             Human
             <i class="fa-solid fa-caret-down"></i>
           </button>
-          <div class="noDisplay dropdownContent" id="playerOneDropdown">
-            <button>Human</button>
-            <button>AI</button>
-          </div>
+          <div class="playerOneTurn tilePlayerOne" id="playerOneTurn"></div>
         </div>
       </div>
 
@@ -63,10 +61,7 @@
             Human
             <i class="fa-solid fa-caret-down"></i>
           </button>
-          <div class="noDisplay dropdownContent" id="playerTwoDropdown">
-            <button>Human</button>
-            <button>AI</button>
-          </div>
+          <div class="playerTwoTurn tilePlayerTwo" id="playerTwoTurn"></div>
         </div>
       </div>
       <div class="restartWrapper">
