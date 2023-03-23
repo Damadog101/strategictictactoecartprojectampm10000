@@ -139,7 +139,6 @@ div[class$="Options"] > button {
   width: 100%;
 }
 .restartWrapper button {
-  background-color: rgb(196, 196, 196);
   font-size: 1.5rem;
   margin: 2%;
   padding: 0.8%;
@@ -148,7 +147,7 @@ div[class$="Options"] > button {
   font-family: 'Times New Roman', Times, serif;
   font-weight: bold;
 
-  background-color: white;
+  background-color: floralwhite;
 
 }  
 
