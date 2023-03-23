@@ -383,7 +383,7 @@ class StrategicBoard {
       await new Promise(r => setTimeout(r, 100));
 
       let P = strategicBoardToPosition(this);
-      let move = await solve(P, 7);
+      let move = await solve(P, 8);
       this.makeMove(move[0], move[1]);
     }
 

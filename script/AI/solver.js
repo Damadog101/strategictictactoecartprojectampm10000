@@ -1,6 +1,33 @@
 import Position from "./position.js";
 // import { TranspositionTable, hash } from "./transposition.js";
 
+function getOrderedMoves(P) {
+  let moves = P.getLegalMoves();
+  let player = P.player == 0 ? 1 : -1;
+  let numMoves = moves.length;
+
+  for (let i = 0; i < numMoves; i++) {
+    let move = moves[i];
+    let P2 = new Position(P);
+    P2.move(move[0], move[1]);
+
+    moves[i] = [P2.score() * player, move];
+  }
+
+  for (let i = 1; i < numMoves; i++) {
+    let c = moves[i];
+    let j = i - 1;
+
+    while ((j > -1) && (c[0] > moves[j][0])) {
+      moves[j + 1] = moves[j];
+      j--;
+    }
+    moves[j + 1] = c;
+  }
+
+  return moves;
+}
+
 /*
   Scores a position based on the best outcome for a given player
   --------------------------------------------------------------
@@ -42,34 +69,61 @@ function minimax(P, depth, alpha = -Infinity, beta = Infinity) {
   }
 
   let bestScore = player == 0 ? -Infinity : Infinity;
-  let start = P.subboard != null ? P.subboard : 0;
-  let end = P.subboard != null ? P.subboard + 1 : 9;
+  // let start = P.subboard != null ? P.subboard : 0;
+  // let end = P.subboard != null ? P.subboard + 1 : 9;
 
-  for (let s = start; s < end; s++) {
-    let subboard = P.subboards[s];
+  let moves = getOrderedMoves(P);
 
-    for (let i = 0; i < 9; i++) {
-      if (!subboard.canPlay(i)) {
-        continue;
-      }
+  for (let i = 0; i < moves.length; i++) {
+    let move = moves[i][1];
+    let subboard = P.subboards[move[0]];
 
-      let P2 = new Position(P);
-      P2.move(s, i);
-      let score = minimax(P2, depth - 1, alpha, beta);
+    if (!subboard.canPlay(move[1])) {
+      continue;
+    }
 
-      if (player == 0) {
-        bestScore = Math.max(score, bestScore);
-        alpha = Math.max(bestScore, alpha);
-      } else {
-        bestScore = Math.min(score, bestScore);
-        beta = Math.min(bestScore, beta);
-      }
+    let P2 = new Position(P);
+    P2.move(move[0], move[1]);
+    let score = minimax(P2, depth - 1, alpha, beta);
 
-      if (beta <= alpha) {
-        break;
-      }
+    if (player == 0) {
+      bestScore = Math.max(score, bestScore);
+      alpha = Math.max(bestScore, alpha);
+    } else {
+      bestScore = Math.min(score, bestScore);
+      beta = Math.min(bestScore, beta);
+    }
+
+    if (beta <= alpha) {
+      break;
     }
   }
+
+  // for (let s = start; s < end; s++) {
+  //   let subboard = P.subboards[s];
+
+  //   for (let i = 0; i < 9; i++) {
+  //     if (!subboard.canPlay(i)) {
+  //       continue;
+  //     }
+
+  //     let P2 = new Position(P);
+  //     P2.move(s, i);
+  //     let score = minimax(P2, depth - 1, alpha, beta);
+
+  //     if (player == 0) {
+  //       bestScore = Math.max(score, bestScore);
+  //       alpha = Math.max(bestScore, alpha);
+  //     } else {
+  //       bestScore = Math.min(score, bestScore);
+  //       beta = Math.min(bestScore, beta);
+  //     }
+
+  //     if (beta <= alpha) {
+  //       break;
+  //     }
+  //   }
+  // }
 
   return bestScore;
 }
@@ -81,14 +135,14 @@ function minimax(P, depth, alpha = -Infinity, beta = Infinity) {
   and returns whichever move has the greatest value.
 */
 function solve(P, depth) {
-  let moves = P.getLegalMoves();
+  let moves = getOrderedMoves(P);
   let player = P.player;
 
   let bestScore = player == 0 ? -Infinity : Infinity;
   let bestMove = null;
 
   for (let i = 0; i < moves.length; i++) {
-    let move = moves[i];
+    let move = moves[i][1];
     let P2 = new Position(P);
     P2.move(move[0], move[1]);
     let score = minimax(P2, depth - 1);
@@ -136,6 +190,8 @@ function strategicBoardToPosition(sb) {
 
   P.player = toBin(sb.player);
   P.subboard = sb.subboard;
+
+  console.log(getOrderedMoves(P));
 
   return P;
 }
