@@ -28,7 +28,7 @@ player1.addEventListener("change", () => {
       p1Img.src = "/images/george.png"
       break
   }
-
+  alert(p1Img)
   p1 = player1.value;
 }) 
 
@@ -55,7 +55,7 @@ player2.addEventListener("change", () => {
       p2Img.src = "/images/george.png"
       break
   }
-
+alert(p2Img)
   p2 = player2.value;
 }) 
 
