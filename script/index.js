@@ -320,7 +320,7 @@ class StrategicBoard {
 
 
     //If a player won that board because of this, run this part
-    if (result != 0) {
+    if (result != 0 && result != 2) {
       // track move on larger board
       let winner = this.board.makeMove(subboard, -this.player);
 
@@ -343,16 +343,18 @@ class StrategicBoard {
             playersBox.innerHTML = `Player 2 won the game!`;
 
             break;
-          case 2:
-            playersBox.classList.add("colorDraw")
-            playersBox.classList.remove("colorPlayerOne", "colorPlayerTwo")
-
-            playersBox.innerHTML = `The game was a draw!`;
-
-            break;
+            
         }
         return winner;
-      }
+
+      } 
+    } else if (result != 0 && result == 2) {
+        
+      playersBox.classList.add("colorDraw")
+      playersBox.classList.remove("colorPlayerOne", "colorPlayerTwo")
+
+      playersBox.innerHTML = `The game was a draw!`;
+      return winner
     }
 
     // Set the subboard to be index ONLY IF subboard is empty. Otherwise set it to null
