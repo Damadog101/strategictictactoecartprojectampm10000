@@ -8,6 +8,7 @@ let p2 = player2.value;
 
 player1.addEventListener("click", () => {
   let p1Img = document.getElementById("selectImgOne")
+p1img.classList.add("selectImg")
   switch(player1.value) {
     case "0":
       p1Img.src = ""
@@ -35,7 +36,7 @@ player1.addEventListener("click", () => {
 
 player2.addEventListener("click", () => {
   let p2Img = document.getElementById("selectImgTwo")
-
+p2img.classList.add("selectImg")
   switch(player2.value) {
     case "0":
       p2Img.src = ""
