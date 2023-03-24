@@ -1,56 +1,45 @@
 import Position from "./position.js";
 // import { TranspositionTable, hash } from "./transposition.js";
 
+/**
+ * Returns a list of all legal moves in a position, sorted by how promising they are.
+ * How promising they are is equal to their evaluation at a depth of 1.
+ *
+ * @param {Position} P
+ * The position to get ordered moves for
+ * @returns {[[subboard, index],...[subboard, index]]}
+ */
 function getOrderedMoves(P) {
   let moves = P.getLegalMoves();
   let player = P.player == 0 ? 1 : -1;
-  let numMoves = moves.length;
 
-  for (let i = 0; i < numMoves; i++) {
-    let move = moves[i];
+  moves = moves.map((move) => {
     let P2 = new Position(P);
     P2.move(move[0], move[1]);
+    return [P2.score() * player, move];
+  });
 
-    moves[i] = [P2.score() * player, move];
-  }
-
-  for (let i = 1; i < numMoves; i++) {
-    let c = moves[i];
-    let j = i - 1;
-
-    while ((j > -1) && (c[0] > moves[j][0])) {
-      moves[j + 1] = moves[j];
-      j--;
-    }
-    moves[j + 1] = c;
-  }
-
-  return moves;
+  return moves.sort((a, b) => b[0] - a[0]);
 }
 
-/*
-  Scores a position based on the best outcome for a given player
-  --------------------------------------------------------------
-  Fairy straightforward implementation of the minimax algorithm with alpha beta pruning.
-  The idea is that the value of a node is equal to the best possible outcome for a player if both players
-  play perfectly. This means that player X will always choose the move with the highest value, and player O
-  will always choose the move with the lowest value. Optimized by storing the upper bound for X and the lower
-  bound for O (alpha and beta), and not evaluating branches in which the lower bound is greater than the upper bound
-  (as this means the move will never be better for X and so will never be played).
-
-  1.) Check if the current position is terminal, or if we have reached the maximum search depth
-    a.) If we have, then return the score of the current position
-  2.) Otherwise, set the best score to be the worst possible value based on which player we are evalutating as
-  3.) For every potential move, recursively run the minimax function on that node until we recieve a numerical evaluation.
-  4.) Update the best score based on that value
-    a.) If player X, set the best score to be the maximum of the current best score and the node we just evaluted
-    b.) If player O, set the best score to be the minimum of the current best score and the node we just evaluted
-  5.) Update alpha/beta values
-    a.) If player X, set alpha to be the maximum of the current alpha and the best score
-    b.) If player O, set the beta to be the minimum of the current beta and the best score
-  6.) If beta is less than alpha, break out of the loop
-  7.) Return the best score.
-*/
+/**
+ * Evalutates how good a Position is relative to whose turn it is to play.
+ *
+ * @param {Position} P
+ * The position to be evaluated.
+ *
+ * @param {number} depth
+ * The depth the search is currently at.
+ *
+ * @param {number} alpha
+ * The current guaranteed best value for player 1. Default -Infinity.
+ *
+ * @param {number} beta
+ * The current guaranteed best value for player 2. Default +Infinity.
+ *
+ * @returns {number}
+ * A score for who is most winning in the given postiion. Value will be positive if player 1 is winning, and negative if player 2 is winning.
+ */
 function minimax(P, depth, alpha = -Infinity, beta = Infinity) {
   let board = P.board;
   let player = P.player;
@@ -69,9 +58,6 @@ function minimax(P, depth, alpha = -Infinity, beta = Infinity) {
   }
 
   let bestScore = player == 0 ? -Infinity : Infinity;
-  // let start = P.subboard != null ? P.subboard : 0;
-  // let end = P.subboard != null ? P.subboard + 1 : 9;
-
   let moves = getOrderedMoves(P);
 
   for (let i = 0; i < moves.length; i++) {
@@ -99,42 +85,24 @@ function minimax(P, depth, alpha = -Infinity, beta = Infinity) {
     }
   }
 
-  // for (let s = start; s < end; s++) {
-  //   let subboard = P.subboards[s];
-
-  //   for (let i = 0; i < 9; i++) {
-  //     if (!subboard.canPlay(i)) {
-  //       continue;
-  //     }
-
-  //     let P2 = new Position(P);
-  //     P2.move(s, i);
-  //     let score = minimax(P2, depth - 1, alpha, beta);
-
-  //     if (player == 0) {
-  //       bestScore = Math.max(score, bestScore);
-  //       alpha = Math.max(bestScore, alpha);
-  //     } else {
-  //       bestScore = Math.min(score, bestScore);
-  //       beta = Math.min(bestScore, beta);
-  //     }
-
-  //     if (beta <= alpha) {
-  //       break;
-  //     }
-  //   }
-  // }
-
   return bestScore;
 }
 
-/*
-  Finds the best move in a given position up to a certain depth
-  -------------------------------------------------------------
-  All this function does is runs the minimax function on every move,
-  and returns whichever move has the greatest value.
-*/
+/**
+ * Solves a position to a given depth, and returns the best move
+ *
+ * @param {Position} P
+ * The position to be solved
+ * @param {number} depth
+ * The depth to search the move tree. Will only accept values greater than 0.
+ * @returns {[subboard, index]}
+ */
 function solve(P, depth) {
+  if (typeof depth != "number" || depth <= 0) {
+    throw new Error("Input depth must be a value greater than or equal to 1");
+  }
+
+  let start = performance.now();
   let moves = getOrderedMoves(P);
   let player = P.player;
 
@@ -156,37 +124,53 @@ function solve(P, depth) {
     }
   }
 
+  console.log(`Solve time: ${performance.now() - start}ms`);
+
   return bestMove;
 }
 
-// Because Ethan used -1 and 1 to represent players, and I used 0 and 1 (binary),
-// toBin converts one to the other
+/**
+ *
+ * @param {1 | -1} n
+ * The number to convert
+ * @returns
+ */
 function toBin(n) {
   return n == -1 ? 1 : 0;
 }
 
+/**
+ * Converts a StrategicBoard type to a Position type
+ *
+ * @param {StrategicBoard} sb
+ * The StrategicBoard type to be converted
+ * @returns
+ */
 function strategicBoardToPosition(sb) {
   let P = new Position();
 
   sb.subboards.forEach((subboard, s) => {
-    // an unfortunate result of old code that I don't have the time to refactor
     let board = subboard.board.board;
-    
+
     board.forEach((p, i) => {
-      if (p == 0) { return }
+      if (p == 0) {
+        return;
+      }
       p = toBin(p);
 
       P.subboards[s].move(i, p);
-    })
-  })
-  
+    });
+  });
+
   sb.board.board.forEach((p, i) => {
-    if (p == 0) { return }
+    if (p == 0) {
+      return;
+    }
     p = toBin(p);
 
     P.board.move(i, p);
     P.legalBoards = P.legalBoards & ~(0b1 << i);
-  })
+  });
 
   P.player = toBin(sb.player);
   P.subboard = sb.subboard;

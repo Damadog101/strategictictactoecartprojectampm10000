@@ -1,63 +1,62 @@
 import { solve, strategicBoardToPosition } from "./AI/solver.js";
 
-let player1 = document.getElementById("player1")
-let player2 = document.getElementById("player2")
+let player1 = document.getElementById("player1");
+let player2 = document.getElementById("player2");
 
 let p1 = player1.value;
 let p2 = player2.value;
 
 player1.addEventListener("change", () => {
-  let p1Img = document.getElementById("selectImgOne")
-  switch(player1.value) {
+  let p1Img = document.getElementById("selectImgOne");
+  switch (player1.value) {
     case "0":
-      p1Img.src = ""
-      break
+      p1Img.src = "";
+      break;
     case "1":
-      p1Img.src = "/images/patrick.png"
-      break
+      p1Img.src = "/images/patrick.png";
+      break;
     case "2":
-      p1Img.src = "/images/shibe.png"
-      break
+      p1Img.src = "/images/shibe.png";
+      break;
     case "4":
-      p1Img.src = "/images/raul.png"
-      break
+      p1Img.src = "/images/raul.png";
+      break;
     case "6":
-      p1Img.src = "/images/spicy.png"
-      break
+      p1Img.src = "/images/spicy.png";
+      break;
     case "8":
-      p1Img.src = "/images/george.png"
-      break
+      p1Img.src = "/images/george.png";
+      break;
   }
- 
-  p1 = player1.value;
-}) 
 
+  p1 = player1.value;
+});
 
 player2.addEventListener("change", () => {
-  let p2Img = document.getElementById("selectImgTwo")
-  switch(player2.value) {
+  let p2Img = document.getElementById("selectImgTwo");
+  switch (player2.value) {
     case "0":
-      p2Img.src = ""
-      break
+      p2Img.src = "";
+      break;
     case "1":
-      p2Img.src = "/images/patrick.png"
-      break
+      p2Img.src = "/images/patrick.png";
+      break;
     case "2":
-      p2Img.src = "/images/shibe.png"
-      break
+      p2Img.src = "/images/shibe.png";
+      break;
     case "4":
-      p2Img.src = "/images/raul.png"
-      break
+      p2Img.src = "/images/raul.png";
+      break;
     case "6":
-      p2Img.src = "/images/spicy.png"
-      break
+      p2Img.src = "/images/spicy.png";
+      break;
     case "8":
-      p2Img.src = "/images/george.png"
-      break
+      p2Img.src = "/images/george.png";
+      break;
   }
 
   p2 = player2.value;
-}) 
+});
 
 let restartButton = document.getElementById("restart");
 
@@ -312,40 +311,37 @@ class StrategicBoard {
     this.player = -this.player;
 
     //Make the rotating tile to display whos turn it is
-    let p1Turn = document.getElementById("playerOneTurn")
-    let p2Turn = document.getElementById("playerTwoTurn")
-    let playersBox = document.getElementById("playersBox")
+    let p1Turn = document.getElementById("playerOneTurn");
+    let p2Turn = document.getElementById("playerTwoTurn");
+    let playersBox = document.getElementById("playersBox");
 
-    p1Turn.classList.remove("rotate")
-    p2Turn.classList.remove("rotate")
+    p1Turn.classList.remove("rotate");
+    p2Turn.classList.remove("rotate");
 
     if (this.player == 1) {
       p1Turn.classList.add("rotate");
-      playersBox.classList.remove("colorPlayerTwo")
-      playersBox.classList.add("colorPlayerOne")
+      playersBox.classList.remove("colorPlayerTwo");
+      playersBox.classList.add("colorPlayerOne");
 
-      if(p1 == "AI") {
-        playersBox.innerHTML = "AI is thinking..."
+      if (p1 == "AI") {
+        playersBox.innerHTML = "AI is thinking...";
       } else {
-        playersBox.innerHTML = "Player 1 to Play..."
+        playersBox.innerHTML = "Player 1 to Play...";
       }
-
     } else if (this.player == -1) {
       p2Turn.classList.add("rotate");
-      playersBox.classList.remove("colorPlayerOne")
-      playersBox.classList.add("colorPlayerTwo")
-      if(p2 == "AI") {
-        playersBox.innerHTML = "AI is thinking..."
+      playersBox.classList.remove("colorPlayerOne");
+      playersBox.classList.add("colorPlayerTwo");
+      if (p2 == "AI") {
+        playersBox.innerHTML = "AI is thinking...";
       } else {
-        playersBox.innerHTML = "Player 2 to Play..."
+        playersBox.innerHTML = "Player 2 to Play...";
       }
     } else {
-      p1Turn.classList.remove("rotate")
-      p2Turn.classList.remove("rotate")
-      playersBox.classList.remove("colorPlayerOne", "colorPlayerTwo")
+      p1Turn.classList.remove("rotate");
+      p2Turn.classList.remove("rotate");
+      playersBox.classList.remove("colorPlayerOne", "colorPlayerTwo");
     }
-
-
 
     //If a player won that board because of this, run this part
     if (result != 0 && result != 2) {
@@ -358,31 +354,28 @@ class StrategicBoard {
 
         switch (winner) {
           case 1:
-            playersBox.classList.add("colorPlayerOne")
-            playersBox.classList.remove("colorPlayerTwo")
+            playersBox.classList.add("colorPlayerOne");
+            playersBox.classList.remove("colorPlayerTwo");
 
             playersBox.innerHTML = `Player 1 won the game!`;
 
             break;
           case -1:
-            playersBox.classList.add("colorPlayerTwo")
-            playersBox.classList.remove("colorPlayerOne")
+            playersBox.classList.add("colorPlayerTwo");
+            playersBox.classList.remove("colorPlayerOne");
 
             playersBox.innerHTML = `Player 2 won the game!`;
 
             break;
-            
         }
         return winner;
-
-      } 
+      }
     } else if (result != 0 && result == 2) {
-        
-      playersBox.classList.add("colorDraw")
-      playersBox.classList.remove("colorPlayerOne", "colorPlayerTwo")
+      playersBox.classList.add("colorDraw");
+      playersBox.classList.remove("colorPlayerOne", "colorPlayerTwo");
 
       playersBox.innerHTML = `The game was a draw!`;
-      return winner
+      return winner;
     }
 
     // Set the subboard to be index ONLY IF subboard is empty. Otherwise set it to null
@@ -401,8 +394,11 @@ class StrategicBoard {
     });
 
     console.log(p1, p2);
-    if (((p1 != 0 && this.player == 1) || (p2 != 0 && this.player == -1)) && !this.board.isComplete) {
-      await new Promise(r => setTimeout(r, 100));
+    if (
+      ((p1 != 0 && this.player == 1) || (p2 != 0 && this.player == -1)) &&
+      !this.board.isComplete
+    ) {
+      await new Promise((r) => setTimeout(r, 100));
 
       let P = strategicBoardToPosition(this);
       let move = await solve(P, this.player == 1 ? p1 : p2);
@@ -420,6 +416,12 @@ class StrategicBoard {
     this.board = new Board();
     this.player = 1;
     this.subboard = null;
+    console.log(p1);
+    if (p1 != 0) {
+      let P = strategicBoardToPosition(this);
+      let move = solve(P, p1);
+      this.makeMove(move[0], move[1]);
+    }
   }
 }
 
