@@ -255,11 +255,22 @@ div[class$="Options"] > button {
 	display: none;
 }
 
-div[class$="Options"] button {
-  font-size: 1.5rem;
-  border: 0px;
-  background-color: transparent;
+div[class$="Options"] select {
+  font-size: 1.2rem;
+  width: 100%;
 }
+
+.selectPlayerOne {
+  border: 1px solid rgb(104, 140, 207);
+  ;
+
+}
+
+.selectPlayerTwo {
+  border: 1px solid rgb(255, 77, 0);
+
+}
+
 
 @media screen and (max-width: 775px) {
   .board-wrapper {

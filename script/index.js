@@ -1,31 +1,64 @@
 import { solve, strategicBoardToPosition } from "./AI/solver.js";
 
-let p1 = "Human";
-let p2 = "Human";
+let player1 = document.getElementById("player1")
+let player2 = document.getElementById("player2")
 
-// function settingsDropDown() {
-//   let popUp = document.getElementById("settingsPopUp");
-//   popUp.classList.toggle("noDisplay")
-// }
+let p1 = player1.value;
+let p2 = player2.value;
 
-const player1Button = document.getElementById("player1");
-const player2Button = document.getElementById("player2");
-// const settingsButton = document.getElementById("settingsIcon")
-function playerOneDropdown() {
-  p1 = p1 == "Human" ? "AI" : "Human";
-  player1Button.innerHTML = p1 + '<i class="fa-solid fa-caret-down"></i>';
-}
+player1.addEventListener("click", () => {
+  let p1Img = document.getElementById("selectImgOne")
+  switch(player1.value) {
+    case "0":
+      p1Img.src = ""
+      break
+    case "1":
+      p1Img.src = "/images/patrick.png"
+      break
+    case "3":
+      p1Img.src = "/images/shibe.png"
+      break
+    case "5":
+      p1Img.src = "/images/raul.png"
+      break
+    case "7":
+      p1Img.src = "/images/spicy.png"
+      break
+    case "9":
+      p1Img.src = "/images/george.png"
+      break
+  }
 
-function playerTwoDropdown() {
-  p2 = p2 == "Human" ? "AI" : "Human";
-  player2Button.innerHTML = p2 + '<i class="fa-solid fa-caret-down"></i>';
-}
-
-player1Button.addEventListener("click", playerOneDropdown);
-player2Button.addEventListener("click", playerTwoDropdown);
-// settingsButton.addEventListener("click", settingsDropDown())
+  p1 = player1.value;
+}) 
 
 
+player2.addEventListener("click", () => {
+  let p2Img = document.getElementById("selectImgTwo")
+
+  switch(player2.value) {
+    case "0":
+      p2Img.src = ""
+      break
+    case "1":
+      p2Img.src = "/images/patrick.png"
+      break
+    case "3":
+      p2Img.src = "/images/shibe.png"
+      break
+    case "5":
+      p2Img.src = "/images/raul.png"
+      break
+    case "7":
+      p2Img.src = "/images/spicy.png"
+      break
+    case "9":
+      p2Img.src = "/images/george.png"
+      break
+  }
+
+  p2 = player2.value;
+}) 
 
 let restartButton = document.getElementById("restart");
 
@@ -279,14 +312,10 @@ class StrategicBoard {
     let result = this.subboards[subboard].makeMove(index, this.player);
     this.player = -this.player;
 
-
-
     //Make the rotating tile to display whos turn it is
     let p1Turn = document.getElementById("playerOneTurn")
     let p2Turn = document.getElementById("playerTwoTurn")
-
     let playersBox = document.getElementById("playersBox")
-
 
     p1Turn.classList.remove("rotate")
     p2Turn.classList.remove("rotate")
@@ -372,11 +401,12 @@ class StrategicBoard {
       board.display.classList.add("inPlay");
     });
 
-    if (p1 == "AI" && this.player == 1 || p2 == "AI" && this.player == -1 && !this.board.isComplete) {
+    console.log(p1, p2);
+    if (((p1 != 0 && this.player == 1) || (p2 != 0 && this.player == -1)) && !this.board.isComplete) {
       await new Promise(r => setTimeout(r, 100));
 
       let P = strategicBoardToPosition(this);
-      let move = await solve(P, 8);
+      let move = await solve(P, this.player == 1 ? p1 : p2);
       this.makeMove(move[0], move[1]);
     }
 
