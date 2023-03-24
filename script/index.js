@@ -6,7 +6,7 @@ let player2 = document.getElementById("player2")
 let p1 = player1.value;
 let p2 = player2.value;
 
-player1.addEventListener("click", () => {
+player1.addEventListener("change", () => {
   let p1Img = document.getElementById("selectImgOne")
   switch(player1.value) {
     case "0":
@@ -33,7 +33,7 @@ player1.addEventListener("click", () => {
 }) 
 
 
-player2.addEventListener("click", () => {
+player2.addEventListener("change", () => {
   let p2Img = document.getElementById("selectImgTwo")
   switch(player2.value) {
     case "0":
