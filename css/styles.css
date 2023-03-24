@@ -91,6 +91,12 @@ main {
   flex-wrap: wrap;
 }
 
+.selectImg {
+  width: 10vw
+}
+
+
+
 .board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
