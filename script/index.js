@@ -15,16 +15,16 @@ player1.addEventListener("change", () => {
     case "1":
       p1Img.src = "/images/patrick.png"
       break
-    case "3":
+    case "2":
       p1Img.src = "/images/shibe.png"
       break
-    case "5":
+    case "4":
       p1Img.src = "/images/raul.png"
       break
-    case "7":
+    case "6":
       p1Img.src = "/images/spicy.png"
       break
-    case "9":
+    case "8":
       p1Img.src = "/images/george.png"
       break
   }
@@ -45,13 +45,13 @@ player2.addEventListener("change", () => {
     case "3":
       p2Img.src = "/images/shibe.png"
       break
-    case "5":
+    case "4":
       p2Img.src = "/images/raul.png"
       break
-    case "7":
+    case "6":
       p2Img.src = "/images/spicy.png"
       break
-    case "9":
+    case "8":
       p2Img.src = "/images/george.png"
       break
   }
