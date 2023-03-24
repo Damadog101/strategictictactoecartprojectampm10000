@@ -42,7 +42,7 @@ player2.addEventListener("change", () => {
     case "1":
       p2Img.src = "/images/patrick.png"
       break
-    case "3":
+    case "2":
       p2Img.src = "/images/shibe.png"
       break
     case "4":
