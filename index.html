@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Strategic Tic Tac Toe Cat Project AMPM 10,000</title>
-    <link rel="stylesheet" href="/css/styles.css" />
-    <script
-      src="https://kit.fontawesome.com/c0c26e9f21.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="/script/index.js" type="module" defer></script>
-  </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Strategic Tic Tac Toe Cat Project AMPM 10,000</title>
+		<link rel="stylesheet" href="/css/styles.css" />
+		<script
+			src="https://kit.fontawesome.com/c0c26e9f21.js"
+			crossorigin="anonymous"
+		></script>
+		<script src="/script/index.js" type="module" defer></script>
+	</head>
 
-  <body>
-    <header>
-      <!-- <div id="settingsWrapper" class="settings">
+	<body>
+		<header>
+			<!-- <div id="settingsWrapper" class="settings">
         <i id="settingsIcon" class="fa-solid fa-gear settingsIcon"></i>
         <div id="settingsPopUp" class="settingsPopUp noDisplay dropdownContent">
           <a href="rules.html">Rules</a>
@@ -24,70 +24,80 @@
           </a>
         </div>
       </div> -->
-      <div class="titles">
-        <h1>
-          <span class="colorPlayerOne">Tic</span>-<span class="colorPlayerTwo"
-            >Tac</span
-          >-Toe <span class="colorPlayerOne">2</span>.<span
-            class="colorPlayerTwo"
-            >0</span
-          >
-        </h1>
-        <div id="playersBox"></div>
-      </div>
-    </header>
-    <main>
-      <div class="playerOneOptions">
-        <h3 class="colorPlayerOne">Player 1</h3>
-        <div class="playerOneDropdown">
-          <select
-            title="selectPlayerOne"
-            id="player1"
-            class="selectPlayerOne colorPlayerOne player1"
-          >
-            <option value="0">Human</option>
-            <option value="1">Patrick &#10088;Lvl 1 AI&#10089;</option>
-            <option value="2">Shibe &#10088;Lvl 2 AI&#10089;</option>
-            <option value="4">Raul &#10088;Lvl 3 AI&#10089;</option>
-            <option value="6">Mr. Spicy &#10088;Lvl 4 AI&#10089;</option>
-            <option value="8">George &#10088;Lvl 5 AI&#10089;</option>
-          </select>
-         <div class="selectDiv"> 
- <img id="selectImgOne" class="selectImg" src="" alt="" />
-</div>
- <div class="playerOneTurn tilePlayerOne" id="playerOneTurn"></div>
-        </div>
-      </div>
+			<div class="titles">
+				<h1>
+					<span class="colorPlayerOne">Tic</span>-<span class="colorPlayerTwo"
+						>Tac</span
+					>-Toe <span class="colorPlayerOne">2</span>.<span
+						class="colorPlayerTwo"
+						>0</span
+					>
+				</h1>
+				<div id="playersBox"></div>
+			</div>
+		</header>
+		<main>
+			<div class="playerOneOptions">
+				<h3 class="colorPlayerOne">Player 1</h3>
+				<div class="playerOneDropdown">
+					<select
+						title="selectPlayerOne"
+						id="player1"
+						class="selectPlayerOne colorPlayerOne player1"
+					>
+						<option value="0">Human</option>
+						<option value="1">Patrick &#10088;Lvl 1 AI&#10089;</option>
+						<option value="2">Shibe &#10088;Lvl 2 AI&#10089;</option>
+						<option value="4">Raul &#10088;Lvl 3 AI&#10089;</option>
+						<option value="6">Mr. Spicy &#10088;Lvl 4 AI&#10089;</option>
+						<option value="8">George &#10088;Lvl 5 AI&#10089;</option>
+					</select>
+					<div class="selectDiv">
+						<img
+							id="selectImgOne"
+							class="selectImg humanImgOne selectImgOne"
+							src="/images/anonymous.png"
+							alt=""
+						/>
+					</div>
+					<div class="playerOneTurn tilePlayerOne" id="playerOneTurn"></div>
+				</div>
+			</div>
 
-      <div id="board-wrapper" class="board board-wrapper">
-        <!-- Generated with code -->
-      </div>
+			<div id="board-wrapper" class="board board-wrapper">
+				<!-- Generated with code -->
+			</div>
 
-      <div class="playerTwoOptions">
-        <h3 class="colorPlayerTwo">Player 2</h3>
-        <div class="playerTwoDropdown">
-          <select
-            title="selectPlayerTwo"
-            id="player2"
-            class="selectPlayerTwo colorPlayerTwo player2"
-          >
-            <option value="0">Human</option>
-            <option value="1">Patrick &#10088;Lvl 1 AI&#10089;</option>
-            <option value="2">Shibe &#10088;Lvl 2 AI&#10089;</option>
-            <option value="4">Raul &#10088;Lvl 3 AI&#10089;</option>
-            <option value="6">Mr. Spicy &#10088;Lvl 4 AI&#10089;</option>
-            <option value="8">George &#10088;Lvl 5 AI&#10089;</option>
-          </select>
-          <div class="selectDiv"> 
- <img id="selectImgTwo" class="selectImg" src="" alt="" />
-</div>
-          <div class="playerTwoTurn tilePlayerTwo" id="playerTwoTurn"></div>
-        </div>
-      </div>
-      <div class="restartWrapper">
-        <button id="restart" class="restart">Restart Game</button>
-      </div>
-    </main>
-    <footer></footer>
-  </body>
+			<div class="playerTwoOptions">
+				<h3 class="colorPlayerTwo">Player 2</h3>
+				<div class="playerTwoDropdown">
+					<select
+						title="selectPlayerTwo"
+						id="player2"
+						class="selectPlayerTwo colorPlayerTwo player2"
+					>
+						<option value="0">Human</option>
+						<option value="1">Patrick &#10088;Lvl 1 AI&#10089;</option>
+						<option value="2">Shibe &#10088;Lvl 2 AI&#10089;</option>
+						<option value="4">Raul &#10088;Lvl 3 AI&#10089;</option>
+						<option value="6">Mr. Spicy &#10088;Lvl 4 AI&#10089;</option>
+						<option value="8">George &#10088;Lvl 5 AI&#10089;</option>
+					</select>
+					<div class="selectDiv">
+						<img
+							id="selectImgTwo"
+							class="selectImg humanImgTwo selectImgTwo"
+							src="/images/anonymous.png"
+							alt=""
+						/>
+					</div>
+					<div class="playerTwoTurn tilePlayerTwo" id="playerTwoTurn"></div>
+				</div>
+			</div>
+			<div class="restartWrapper">
+				<button id="restart" class="restart">Restart Game</button>
+			</div>
+		</main>
+		<footer></footer>
+	</body>
 </html>

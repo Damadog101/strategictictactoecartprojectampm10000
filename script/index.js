@@ -10,22 +10,33 @@ player1.addEventListener("change", () => {
 	let p1Img = document.getElementById("selectImgOne");
 	switch (player1.value) {
 		case "0":
-			p1Img.src = "";
+			p1Img.src = "/images/anonymous.png";
+			p1Img.classList.add("humanImgOne");
 			break;
 		case "1":
 			p1Img.src = "/images/patrick.png";
+			p1Img.classList.remove("humanImgOne");
+
 			break;
 		case "2":
 			p1Img.src = "/images/shibe.png";
+			p1Img.classList.remove("humanImgOne");
+
 			break;
 		case "4":
 			p1Img.src = "/images/raul.png";
+			p1Img.classList.remove("humanImgOne");
+
 			break;
 		case "6":
 			p1Img.src = "/images/spicy.jpg";
+			p1Img.classList.remove("humanImgOne");
+
 			break;
 		case "8":
 			p1Img.src = "/images/george.png";
+			p1Img.classList.remove("humanImgOne");
+
 			break;
 	}
 
@@ -36,22 +47,33 @@ player2.addEventListener("change", () => {
 	let p2Img = document.getElementById("selectImgTwo");
 	switch (player2.value) {
 		case "0":
-			p2Img.src = "";
+			p2Img.src = "/images/anonymous.png";
+			p2Img.classList.add("humanImgTwo");
 			break;
 		case "1":
 			p2Img.src = "/images/patrick.png";
+			p2Img.classList.remove("humanImgTwo");
+
 			break;
 		case "2":
 			p2Img.src = "/images/shibe.png";
+			p2Img.classList.remove("humanImgTwo");
+
 			break;
 		case "4":
 			p2Img.src = "/images/raul.png";
+			p2Img.classList.remove("humanImgTwo");
+
 			break;
 		case "6":
 			p2Img.src = "/images/spicy.jpg";
+			p2Img.classList.remove("humanImgTwo");
+
 			break;
 		case "8":
 			p2Img.src = "/images/george.png";
+			p2Img.classList.remove("humanImgTwo");
+
 			break;
 	}
 

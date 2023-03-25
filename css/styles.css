@@ -90,11 +90,21 @@ main {
 
 .selectDiv {
 	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 10%;
 }
 
 .selectImg {
-	width: 100%;
+	width: 50%;
 	object-fit: cover;
+}
+
+.selectImgOne {
+	border: 1px solid rgb(104, 140, 207);
+}
+.selectImgTwo {
+	border: 1px solid rgb(255, 77, 0);
 }
 
 .board {
@@ -197,6 +207,15 @@ div[class$="Options"] > button {
 }
 .tilePlayerOne {
 	background: linear-gradient(rgb(122, 194, 188), rgb(83, 112, 232));
+}
+
+.humanImgTwo {
+	filter: invert(35%) sepia(90%) saturate(3049%) hue-rotate(1deg)
+		brightness(103%) contrast(103%);
+}
+.humanImgOne {
+	filter: invert(76%) sepia(42%) saturate(4962%) hue-rotate(192deg)
+		brightness(85%) contrast(89%);
 }
 
 .subboard {
