@@ -3,8 +3,8 @@ import { solve, strategicBoardToPosition } from "./AI/solver.js";
 let player1 = document.getElementById("player1");
 let player2 = document.getElementById("player2");
 
-let p1 = player1.value;
-let p2 = player2.value;
+let p1 = parseInt(player1.value);
+let p2 = parseInt(player2.value);
 
 player1.addEventListener("change", () => {
 	let p1Img = document.getElementById("selectImgOne");
@@ -40,7 +40,7 @@ player1.addEventListener("change", () => {
 			break;
 	}
 
-	p1 = player1.value;
+	p1 = parseInt(player1.value);
 });
 
 player2.addEventListener("change", () => {
@@ -77,7 +77,7 @@ player2.addEventListener("change", () => {
 			break;
 	}
 
-	p2 = player2.value;
+	p2 = parseInt(player2.value);
 });
 
 let restartButton = document.getElementById("restart");
@@ -345,19 +345,35 @@ class StrategicBoard {
 			playersBox.classList.remove("colorPlayerTwo");
 			playersBox.classList.add("colorPlayerOne");
 
-			if (p1 == "AI") {
-				playersBox.innerHTML = "AI is thinking...";
-			} else {
+			if (p1 == "0") {
 				playersBox.innerHTML = "Player 1 to Play...";
+			} else if (p1 == "1") {
+				playersBox.innerHTML = "Patrick is Thinking...";
+			} else if (p1 == "2") {
+				playersBox.innerHTML = "Shibe is Thinking...";
+			} else if (p1 == "4") {
+				playersBox.innerHTML = "Raul is Thinking...";
+			} else if (p1 == "6") {
+				playersBox.innerHTML = "Mr. Spicy is Thinking...";
+			} else if (p1 == "8") {
+				playersBox.innerHTML = "George is Thinking...";
 			}
 		} else if (this.player == -1) {
 			p2Turn.classList.add("rotate");
 			playersBox.classList.remove("colorPlayerOne");
 			playersBox.classList.add("colorPlayerTwo");
-			if (p2 == "AI") {
-				playersBox.innerHTML = "AI is thinking...";
-			} else {
+			if (p2 == "0") {
 				playersBox.innerHTML = "Player 2 to Play...";
+			} else if (p2 == "1") {
+				playersBox.innerHTML = "Patrick is Thinking...";
+			} else if (p2 == "2") {
+				playersBox.innerHTML = "Shibe is Thinking...";
+			} else if (p2 == "4") {
+				playersBox.innerHTML = "Raul is Thinking...";
+			} else if (p2 == "6") {
+				playersBox.innerHTML = "Mr. Spicy is Thinking...";
+			} else if (p2 == "8") {
+				playersBox.innerHTML = "George is Thinking...";
 			}
 		} else {
 			p1Turn.classList.remove("rotate");
