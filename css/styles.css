@@ -208,6 +208,15 @@ div[class$="Options"] > button {
 .tilePlayerOne {
 	background: linear-gradient(rgb(122, 194, 188), rgb(83, 112, 232));
 }
+.recent {
+	border: 3px solid #0d00ff;
+}
+
+
+
+
+
+
 
 .humanImgTwo {
 	filter: invert(35%) sepia(90%) saturate(3049%) hue-rotate(1deg)

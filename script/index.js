@@ -87,6 +87,9 @@ function newSubboard(i) {
 //Sets style of tile based on player who occupies tile
 function styleTile(tile, player) {
   tile.classList.remove("tileEmpty");
+
+  tile.classList.add("recent");
+
   tile.classList.add(player == 1 ? "tilePlayerOne" : "tilePlayerTwo");
 }
 
@@ -143,7 +146,7 @@ function resetSubboard() {
 // Resets tiles classes
 function resetTiles(tile) {
   tile.classList.add("tileEmpty");
-  tile.classList.remove("tilePlayerOne", "tilePlayerTwo");
+  tile.classList.remove("tilePlayerOne", "tilePlayerTwo", "recent");
 }
 
 // Represents the functionality but not the style of the tic tac toe board
