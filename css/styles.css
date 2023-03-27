@@ -148,6 +148,9 @@ div[class$="Options"] > button {
 	padding: 1%;
 }
 
+
+
+
 .restartWrapper {
 	display: flex;
 	justify-content: center;
@@ -263,24 +266,57 @@ div[class$="Options"] > button {
 	width: 100%;
 }
 
-.settingsPopUp {
-	position: absolute;
-	top: 200px;
-	right: 4px;
-	z-index: -1;
-
-	padding: 1.8% 0.5% 1% 0.5%;
-	border: 1px solid black;
-	z-index: -1;
+.rules {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row-reverse;
+	padding: 1%;
+}
+.rules a {
+	text-decoration: none;
+	color: black;
+}
+.rules a:hover {
+	color: gray;
+}
+
+.rulesPageWrapper {
+	display: grid;
+	/* grid-template-columns: 3fr 1fr; */
+	width: 80vw;
+	margin: 0 auto;
+}
+
+.rulesPageWrapper * {
+	font-size: 2rem;
+}
+
+.rulesText {
+	padding: 1.5% 3%;
+}
+
+.rulesText p {
+	padding: 0.9% 0%;
+}
+
+.rulesImg {
+	display: flex;
 	justify-content: center;
-	align-items: center;
-	transition: all 0.1s ease-in;
+	object-fit: cover;
 }
-.settingsPopUp * {
-	padding: 10% 0%;
+
+
+h2 {
+	width: 100%;
+	text-align: center;
+	padding: 2%;
+	font-size: 4rem;
 }
+
+i {
+	font-size: 2rem;
+}
+
+
 .noDisplay {
 	display: none;
 }
