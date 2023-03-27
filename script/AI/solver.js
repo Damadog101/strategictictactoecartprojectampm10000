@@ -175,8 +175,6 @@ function strategicBoardToPosition(sb) {
   P.player = toBin(sb.player);
   P.subboard = sb.subboard;
 
-  console.log(getOrderedMoves(P));
-
   return P;
 }
 
