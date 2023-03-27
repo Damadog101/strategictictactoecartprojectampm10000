@@ -193,7 +193,6 @@ class Board {
   // Function to Check Win
   checkWin() {
     let board = this.board;
-    console.log(board);
 
     // Forward Diagonal Win
     if (
