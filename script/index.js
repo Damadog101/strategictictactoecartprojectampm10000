@@ -120,6 +120,9 @@ function newSubboard(i) {
 //Sets style of tile based on player who occupies tile
 function styleTile(tile, player) {
 	tile.classList.remove("tileEmpty");
+
+	tile.classList.add("recent")
+
 	tile.classList.add(player == 1 ? "tilePlayerOne" : "tilePlayerTwo");
 }
 
@@ -176,7 +179,7 @@ function resetSubboard() {
 // Resets tiles classes
 function resetTiles(tile) {
 	tile.classList.add("tileEmpty");
-	tile.classList.remove("tilePlayerOne", "tilePlayerTwo");
+	tile.classList.remove("tilePlayerOne", "tilePlayerTwo", "recent");
 }
 
 // Represents the functionality but not the style of the tic tac toe board
@@ -322,11 +325,20 @@ class StrategicBoard {
 			}
 		}
 
+		//removes recent class
+		for (let tile of tilesArr) {	
+			tile.classList.remove("recent")
+		}
+
+		
+
 		//removes inPlay class from old subboards after each turn
 		for (let subB in this.subboards) {
 			let curBoard = document.getElementById("0" + subB);
 			curBoard.classList.remove("inPlay");
 		}
+
+		
 
 		// Make move and store move result
 		let result = this.subboards[subboard].makeMove(index, this.player);
@@ -439,7 +451,7 @@ class StrategicBoard {
 			await new Promise((r) => setTimeout(r, 100));
 
 			let P = strategicBoardToPosition(this);
-			let move = await solve(P, this.player == 1 ? p1 : p2);
+			let move = solve(P, this.player == 1 ? p1 : p2);
 			this.makeMove(move[0], move[1]);
 		}
 
@@ -475,6 +487,12 @@ for (let tile of tilesArr) {
 	tile.addEventListener("click", () => {
 		let subboard = Math.floor(tile.id / 9);
 		let index = tile.id % 9;
+
+		
+		
+
+
 		board.makeMove(subboard, index);
+
 	});
 }
