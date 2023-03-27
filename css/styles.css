@@ -157,7 +157,8 @@ div[class$="Options"] > button {
 	align-items: center;
 	width: 100%;
 }
-.restartWrapper button {
+.restartWrapper button,
+.rulesButton {
 	font-size: 1.5rem;
 	margin: 2%;
 	padding: 0.8%;
@@ -165,11 +166,25 @@ div[class$="Options"] > button {
 	cursor: pointer;
 	font-family: "Times New Roman", Times, serif;
 	font-weight: bold;
-
 	background-color: floralwhite;
 }
 
-.restartWrapper button:hover {
+.rulesButton {
+	border: 1px solid black;
+	color: black;
+	text-decoration: none;
+}	
+
+.rulesButtonWrapper {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+
+
+.restartWrapper button:hover,
+.rulesButton:hover {
 	background-color: rgb(212, 212, 212);
 }
 
