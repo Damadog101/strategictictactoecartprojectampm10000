@@ -298,6 +298,10 @@ class StrategicBoard {
       }
     }
 
+    for (let tile of tilesArr) {
+      tile.classList.remove("recent");
+    }
+
     //removes inPlay class from old subboards after each turn
     for (let subB in this.subboards) {
       let curBoard = document.getElementById("0" + subB);
