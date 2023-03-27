@@ -2,11 +2,15 @@ import Board from "./position/board.js";
 import { hash } from "./transposition.js";
 
 class Position {
-  /*
-    Implements the ability to clone a position. The reason being that beacuse everything is stored in binary,
-    it is actually more than twice as fast to simply clone all of those values than it is to keep track of a history of
-    moves and make and unmake those moves when searching a game tree.
-  */
+  /**
+   * The position class is a representation of a Strategic-Tic-Tac-Toe board that is optimized for
+   * number crunching. All boards are reprsented in binary, including a list of which boards are still in play and which boards have been won.
+   * The player value is represented as 0 and 1.
+   *
+   * @param {Position} P
+   * If passed in, the constructor will clone the given Position instead of making a new one. Optional.
+   * @returns {Position}
+   */
   constructor(P) {
     if (P) {
       this.subboards = [];
@@ -27,20 +31,14 @@ class Position {
     this.board = new Board();
   }
 
-  /*
-    Makes a move
-    ------------
-    Although a bit messy, this function is straightforward.
-      1.) If there is a current subboard we are forced to play on, use that.
-      2.) Make the move and track the result.
-        a.) If the board is complete, remove that from the list of legal subboards we can play on
-        b.) If the board was won by a player, track that on the larger board
-      3.) Invert the player
-      4.) Update the current subboard we have to play on
-        a.) Create a mask that represents the bit we want to check in legalBoards
-        b.) If that bit is a 1, that means the board is legal and we are forced to play on it next move
-        c.) Otherwise the board is illegal and so we can play on any other legal subboard.
-  */
+  /**
+   * Makes a move on a position
+   *
+   * @param {Integer} s
+   * The subboard to play on
+   * @param {Integer} i
+   * The index to play on
+   */
   move(s, i) {
     s = this.subboard || s;
     let p = this.player;
@@ -56,12 +54,12 @@ class Position {
     this.subboard = (this.legalBoards & mask) == mask ? i : null;
   }
 
-  /*
-    Evaluates the current position
-    ------------------------------
-    The return value is the sum of the evaluations of all of the positions subboards,
-    with a high weight placed on the main board.
-  */
+  /**
+   * Returns the current evaluation of a position
+   * Will be positive if player 1 is winning, and negative if player 2 is winning.
+   *
+   * @returns
+   */
   score() {
     let score = 0;
 
@@ -73,14 +71,16 @@ class Position {
     return score;
   }
 
-  /*
-    Checks the legality of a move
-    -----------------------------
-    1.) Check if the subboard is not legal
-    2.) Checks if that index on that subboard is not empty
-    If either is true, returns false.
-    Otherwise returns true.
-  */
+  /**
+   * Checks if a given move is legal
+   *
+   * @param {Integer} s
+   * The subboard of the move to check
+   * @param {Integer} i
+   * The index of the move to check
+   * @returns
+   * If the provided move is a legal one
+   */
   canPlay(s, i) {
     if ((this.legalBoards & (0b1 << s)) == 0) {
       return false;
@@ -91,13 +91,11 @@ class Position {
     return true;
   }
 
-  /*
-    Gets a list of all legal moves in a position
-    --------------------------------------------
-    For every potential subboard (limited to the current subboard if there is one),
-    checks every position on that subboard and adds it to the list of legal moves
-    if that move is legal
-  */
+  /**
+   * Fetches all the legal moves in a position
+   *
+   * @returns {[[subboard, index], ...[]]}
+   */
   getLegalMoves() {
     let moves = [];
     let start = this.subboard != null ? this.subboard : 0;
@@ -114,6 +112,12 @@ class Position {
     return moves;
   }
 
+  /**
+   * Fetches the hash of a position
+   *
+   * @returns
+   * The hash of a position
+   */
   hash() {
     return hash(this);
   }
